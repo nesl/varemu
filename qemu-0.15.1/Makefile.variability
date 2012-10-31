@@ -1,0 +1,14 @@
+SHELL = /bin/sh
+
+CC = gcc
+CFLAGS = -g -O2 -Wall -Wstrict-prototypes
+
+GCC = gcc
+BCC = bcc
+AS86 = as86
+
+
+all:  $(GCC) first-powr-model.c -o first-powr-model
+
+# source files
+VAR_FILES := first-powr-model.c power-model.h qemu-variability.h
