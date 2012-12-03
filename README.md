@@ -4,15 +4,16 @@
 
 ### VarEMU
 
-* Get VarEMU source code.
+* Download VarEMU source code.
 * Download and extract [qemu-1.2](http://wiki.qemu-project.org/download/qemu-1.2.0.tar.bz2):
 * Copy VarEMU extensions into QEMU
 * Configure QEMU
 * Build QEMU with VarEMU extensions
 
 <pre>
-git clone git://github.com/nesl/varemu.git
-cd varemu
+wget https://github.com/nesl/varemu/archive/master.zip
+unzip master.zip
+cd varemu-master/varemu/
 wget http://wiki.qemu-project.org/download/qemu-1.2.0.tar.bz2
 tar xjf qemu-1.2.0.tar.bz2
 cp -r varemu/* qemu-1.2.0/
@@ -44,4 +45,48 @@ make menuconfig
 
 <pre>
 make
+cd ..
 </pre>
+
+### Busybox
+
+* Download [Busybox](http://www.busybox.net/downloads/busybox-1.20.2.tar.bz2)
+
+<pre>
+wget http://www.busybox.net/downloads/busybox-1.20.2.tar.bz2
+tar xjf busybox-1.20.2.tar.bz2
+cd busybox-1.20.2/
+make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- defconfig
+make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- menuconfig
+</pre>
+
+* Under "Busybox Settings –> Build Options", select "Build as a static binary"
+* Build busybox
+
+<pre>
+make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- install
+cd ..
+</pre>
+
+### Root filesystem with demo apps
+
+* Build demo apps
+* Make fs image
+
+<pre>
+cd fs/src/
+make
+cd ../..
+make image
+cd ..
+</pre>
+
+## Running VarEMU
+
+* From the main varemu directory, start QEMU with VarEMU options
+
+<pre>
+qemu-1.2.0/arm-softmmu/qemu-system-arm -k /usr/share/qemu/keymaps/en-us -M versatilepb -m 128M -kernel linux/img/zImage -initrd linux/img/rootfs.img.gz -append "root=/dev/ram rdinit=/sbin/init console=ttyAMA0" -singlestep -variability power_model_data/instance_01.txt -nographic 
+</pre>
+
+
