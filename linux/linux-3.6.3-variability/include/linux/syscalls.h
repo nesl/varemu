@@ -862,6 +862,6 @@ asmlinkage long sys_kcmp(pid_t pid1, pid_t pid2, int type,
 			 unsigned long idx1, unsigned long idx2);
 
 asmlinkage long sys_var_reg_read(int offset, uint64_t __user *dest);
-asmlinkage long sys_var_reg_write(int offset, uint64_t val);
+asmlinkage long sys_var_reg_write(int offset, uint64_t __user *val);
 
 #endif

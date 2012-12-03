@@ -40,17 +40,19 @@ asmlinkage long sys_var_reg_read(int offset, uint64_t __user *dest) {
 	return 0;
 }
 
-asmlinkage long sys_var_reg_write(int offset, uint64_t val) {
+asmlinkage long sys_var_reg_write(int offset, uint64_t __user *val) {
     
+   	uint64_t myval;
    
     if ((offset > 0x1000) | (offset % 8)) {
         return -EFAULT;
     }
-    
-    iowrite32((uint32_t)val, (uint32_t*)(base_pointer + offset));
-    iowrite32((uint32_t)(val>>32), (uint32_t*)(base_pointer + offset));
-    
-    
+ 
+ 	if (copy_from_user(&myval, val, sizeof(myval)))
+                return -EFAULT;
+        
+    iowrite32((uint32_t)myval, (uint32_t*)(base_pointer + offset));
+    iowrite32((uint32_t)(myval>>32), (uint32_t*)(base_pointer + offset + 4));
     
 	return 0;
     

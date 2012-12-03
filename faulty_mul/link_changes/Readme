@@ -1,0 +1,8 @@
+1- include "c_operations.h" 
+in the file you will call fault multiply from
+
+2- Add libOperation.a to the source path of qemu
+
+3- replace rules.mak with the one in this folder 
+
+
