@@ -13,7 +13,7 @@
 <pre>
 wget https://github.com/nesl/varemu/archive/master.zip
 unzip master.zip
-cd varemu-master/varemu/
+cd varemu-master/
 wget http://wiki.qemu-project.org/download/qemu-1.2.0.tar.bz2
 tar xjf qemu-1.2.0.tar.bz2
 cp -r varemu/* qemu-1.2.0/
@@ -34,6 +34,8 @@ cd ..
 cd linux
 wget http://www.kernel.org/pub/linux/kernel/v3.0/linux-3.6.3.tar.bz2
 tar xjf linux-3.6.3.tar.bz2
+export ARCH=arm
+export CROSS_COMPILE=arm-none-linux-gnueabi-
 cp -r linux-3.6.3-variability/* linux-3.6.3/
 cd linux-3.6.3/
 make versatile_defconfig
