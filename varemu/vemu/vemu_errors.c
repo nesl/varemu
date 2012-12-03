@@ -9,7 +9,7 @@
 
 #include "vemu-errors.h"
 #include "vemu.h"
-#include "c_operations.h"
+//#include "c_operations.h"
 
 uint64_t vemu_errors_enabled = 0;
 
