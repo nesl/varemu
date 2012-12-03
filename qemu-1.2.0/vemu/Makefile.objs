@@ -1,3 +1,0 @@
-common-obj-y += vemu_user_io.o vemu_arm.o vemu_cycles.o vemu_power_tvlsi.o vemu_energy.o   
-hw-obj-y += vemu_hw_module.o
-obj-y += vemu_errors.o
