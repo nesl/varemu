@@ -3369,9 +3369,18 @@ static inline void gen_vemu_info(DisasContext * dc, int thumb)
 static inline void gen_vemu_error_replace(DisasContext * dc, int thumb)
 {
     vemu_target_decode_instr(arm_ldl_code(dc->pc, dc->bswap_code), thumb, &dc->tb->vemu);
+    TCGv_i32 retval = tcg_temp_new_i32();
+    
+    
     TCGv_i64 tb_ptr = tcg_temp_new_i64();
     tcg_gen_movi_i64(tb_ptr, (uint64_t)dc->tb);
-    gen_helper_vemu_error_replace(tb_ptr);
+    gen_helper_vemu_error_replace(retval, tb_ptr);
+    
+	dc->condlabel = gen_new_label();
+	tcg_gen_brcondi_i32(TCG_COND_NE, retval, 0, dc->condlabel);
+	dc->condjmp = 1;    
+    
+    tcg_temp_free_i32(retval);    
     tcg_temp_free_i64(tb_ptr);
 }
 #endif
@@ -9849,20 +9858,8 @@ static inline void gen_intermediate_code_internal(CPUARMState *env,
             gen_vemu_info(dc, 1);
             if (dc->tb->vemu.instr_info->errors & VEMU_ERRORS_REPLACE) {
                 gen_vemu_error_replace(dc, 1);
-                dc->pc += 2;
-            } else {
-                
-                disas_thumb_insn(env, dc);
-                if (dc->condexec_mask) {
-                    dc->condexec_cond = (dc->condexec_cond & 0xe)
-                    | ((dc->condexec_mask >> 4) & 1);
-                    dc->condexec_mask = (dc->condexec_mask << 1) & 0x1f;
-                    if (dc->condexec_mask == 0) {
-                        dc->condexec_cond = 0;
-                    }
-                }
-            }
-            #else
+            } 
+            #endif
             disas_thumb_insn(env, dc);
             if (dc->condexec_mask) {
                 dc->condexec_cond = (dc->condexec_cond & 0xe)
@@ -9872,19 +9869,14 @@ static inline void gen_intermediate_code_internal(CPUARMState *env,
                     dc->condexec_cond = 0;
                 }
             }
-            #endif
         } else {
 			#ifdef 	VEMU	
             gen_vemu_info(dc, 0);
-            if (dc->tb->vemu.instr_info->errors & VEMU_ERRORS_REPLACE) {
+            if (dc->tb->vemu.instr_info->errors == VEMU_ERRORS_REPLACE) {
                 gen_vemu_error_replace(dc, 0);
-                dc->pc += 4;
-            } else {
-                disas_arm_insn(env, dc);
             }
-            #else
-            disas_arm_insn(env, dc);
             #endif
+            disas_arm_insn(env, dc);
         }
 
         if (dc->condjmp && !dc->is_jmp) {

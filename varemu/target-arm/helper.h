@@ -55,7 +55,7 @@ DEF_HELPER_0(wfi, void)
 
 #ifdef VEMU
 DEF_HELPER_1(vemu_info, void, i64)
-DEF_HELPER_1(vemu_error_replace, void, i64)
+DEF_HELPER_1(vemu_error_replace, i32, i64)
 DEF_HELPER_1(vemu_error_pre, void, i64)
 DEF_HELPER_1(vemu_error_post, void, i64)
 #endif
