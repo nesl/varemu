@@ -50,7 +50,22 @@ make
 cd ..
 </pre>
 
-### Busybox
+### Buildroot
+
+<pre>
+wget http://buildroot.uclibc.org/downloads/buildroot-2012.11.tar.bz2
+cd buildroot-2012.11
+</pre>
+
+* Under Target Architecture, Select ARM Little Endian
+* Under Target Architecture Variant, Select arm926t
+* Under Toolchain -> Toolchain type, Select External Toolchain
+* Under Toolchain -> Toolchain origin, Select pre-installed toolchain
+* Under Toolchain -> Toolchain path, type in path for CodeBench toolchain (e.g. /opt/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_GNU_Linux/)
+* Under Filesystem images, select "cpio the root filesystem". Under compression method, select gzip
+* Under System Configuration -> Port to run a getty, use "tty0"
+
+### Busybox (Alternative to Buildroot) 
 
 * Download [Busybox](http://www.busybox.net/downloads/busybox-1.20.2.tar.bz2)
 

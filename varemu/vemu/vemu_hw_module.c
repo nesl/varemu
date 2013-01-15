@@ -26,6 +26,8 @@
 #define TOTAL_ACT_ENERGY	0x580
 #define TOTAL_SLP_ENERGY	0x5C0
 #define ERRORS_EN			0xFC0
+#define VEMU_EXIT           0xFD0
+
 
 typedef struct {
 	SysBusDevice busdev;
@@ -104,6 +106,9 @@ static void vemu_mod_write(void *opaque, target_phys_addr_t offset,
              */
 			vemu_errors_enabled = val;
 		} break;
+        case VEMU_EXIT : {
+            exit(-1);
+        } break;		
 	}
 }
 
