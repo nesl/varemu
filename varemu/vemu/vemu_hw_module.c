@@ -107,6 +107,7 @@ static void vemu_mod_write(void *opaque, target_phys_addr_t offset,
 			vemu_errors_enabled = val;
 		} break;
         case VEMU_EXIT : {
+			printf("Killing QEMU. I hope you unmounted all network filesystems...\n");
             exit(-1);
         } break;		
 	}
