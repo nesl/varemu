@@ -53,57 +53,31 @@ cd ..
 ### Buildroot
 
 <pre>
+cd linux
 wget http://buildroot.uclibc.org/downloads/buildroot-2012.11.tar.bz2
+tar xjf buildroot-2012.11.tar.bz2 
 cd buildroot-2012.11
+make menuconfig
 </pre>
 
-* Under Target Architecture, Select ARM Little Endian
-* Under Target Architecture Variant, Select arm926t
-* Under Toolchain -> Toolchain type, Select External Toolchain
-* Under Toolchain -> Toolchain origin, Select pre-installed toolchain
-* Under Toolchain -> Toolchain path, type in path for CodeBench toolchain (e.g. /opt/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_GNU_Linux/)
-* Under Filesystem images, select "cpio the root filesystem". Under compression method, select gzip
-* Under System Configuration -> Port to run a getty, use "tty0"
-
-### Busybox (Alternative to Buildroot) 
-
-* Download [Busybox](http://www.busybox.net/downloads/busybox-1.20.2.tar.bz2)
+* Under Load an Alternate Configuration File, select "buildrootconfig" in the linux directory
+* Select any additional apps needed under Package Selection for the Target
+* Save an Alternate Configuration file -> "buildroot-2012.11/.config" 
+* Add your apps and custom configuration files under the "fs" directory. Buildroot will run the "prepare_fs.sh" script to copy these files before preparing the filesystem image
 
 <pre>
-wget http://www.busybox.net/downloads/busybox-1.20.2.tar.bz2
-tar xjf busybox-1.20.2.tar.bz2
-cd busybox-1.20.2/
-make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- defconfig
-make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- menuconfig
-</pre>
-
-* Under "Busybox Settings –> Build Options", select "Build as a static binary"
-* Build busybox
-
-<pre>
-make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- install
-cd ..
-</pre>
-
-### Root filesystem with demo apps
-
-* Build demo apps
-* Make fs image
-
-<pre>
-cd fs/src/
 make
-cd ../..
-make image
-cd ..
 </pre>
+
+
+
 
 ## Running VarEMU
 
 * From the main varemu directory, start QEMU with VarEMU options
 
 <pre>
-qemu-1.2.0/arm-softmmu/qemu-system-arm -k /usr/share/qemu/keymaps/en-us -M versatilepb -m 128M -kernel linux/img/zImage -initrd linux/img/rootfs.img.gz -append "root=/dev/ram rdinit=/sbin/init console=ttyAMA0" -singlestep -variability power_model_data/instance_01.txt -nographic 
+qemu-1.2.0/arm-softmmu/qemu-system-arm -k /usr/share/qemu/keymaps/en-us -M versatilepb -m 256M -kernel linux/linux-3.6.3/arch/arm/boot/zImage -initrd linux/buildroot-2012.11/output/images/rootfs.cpio.gz -append "root=/dev/ram rdinit=/sbin/init" -singlestep -variability power_model_data/instance_01.txt -net nic -net user -nographic
 </pre>
 
 

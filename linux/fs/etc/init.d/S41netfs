@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# Start the network....
+#
+
+case "$1" in
+  start)
+ 	echo "Mounting remote fs..."
+	mount.cifs //172.17.5.168/test /mnt -o user=lucas,pass=123456
+	;;
+  stop)
+	echo -n "Unmounting remote fs..."
+	umount /mnt
+	;;
+  restart|reload)
+	"$0" stop
+	"$0" start
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?
+
