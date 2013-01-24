@@ -2080,13 +2080,8 @@ context_switch(struct rq *rq, struct task_struct *prev,
 	spin_release(&rq->lock.dep_map, 1, _THIS_IP_);
 #endif
 
-	// VEMU: ugly hack for now
-	uint8_t *vemu_err_ptr;
-	vemu_err_ptr = ioremap(0x101F5000+0xFC0, 8);
-	prev->vemu_error_status = ioread32((uint32_t*)(vemu_err_ptr));
-	ioread32((uint32_t*)(vemu_err_ptr+4));
-	iowrite32((uint32_t)next->vemu_error_status, (uint32_t*)(vemu_err_ptr));
-	iounmap(vemu_err_ptr);
+        vemu_save_error_status(&(prev->vemu));
+        vemu_restore_error_status(&(next->vemu));
 
 	/* Here we just switch the register state and the stack. */
 	switch_to(prev, next, prev);

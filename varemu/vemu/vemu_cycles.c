@@ -29,7 +29,6 @@ uint64_t last_sleep_time;
 bool entered_sleep_mode;
 
 uint64_t vemu_get_cycles(uint32_t class);
-uint64_t vemu_get_cycles_all_classes(void);
 
 
 uint64_t vemu_get_frequency(void)
@@ -139,6 +138,7 @@ void vemu_sleep_start(void)
 void vemu_init_cycles(void) 
 {
 	int i;
+	vemu_debug("vemu_init_cycles\n");
 	for (i = 0; i < MAX_INSTR_CLASSES; i++) {
 		cycle_count[i] = 0;
 	}

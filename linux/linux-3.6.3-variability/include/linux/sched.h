@@ -94,6 +94,9 @@ struct sched_param {
 
 #include <asm/processor.h>
 
+#include <misc/variability.h>
+
+
 struct exec_domain;
 struct futex_pi_state;
 struct robust_list_head;
@@ -1589,9 +1592,7 @@ struct task_struct {
 #ifdef CONFIG_UPROBES
 	struct uprobe_task *utask;
 #endif
-
-	uint64_t vemu_error_status;
-
+    vemu_status vemu;
 };
 
 /* Future-safe accessor for struct task_struct's cpus_allowed. */

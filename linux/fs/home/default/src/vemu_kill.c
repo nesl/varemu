@@ -7,4 +7,5 @@ volatile int z = 1;
 
 int main() {
 	vemu_kill();
+	return 0;
 }

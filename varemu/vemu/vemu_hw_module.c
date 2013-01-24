@@ -25,6 +25,7 @@
 #define TOTAL_SLP_TIME		0x540
 #define TOTAL_ACT_ENERGY	0x580
 #define TOTAL_SLP_ENERGY	0x5C0
+#define TOTAL_CYCLES		0x600
 #define ERRORS_EN			0xFC0
 #define VEMU_EXIT           0xFD0
 
@@ -87,6 +88,10 @@ static uint64_t vemu_mod_read(void *opaque, target_phys_addr_t offset, unsigned 
 		case TOTAL_SLP_ENERGY : {
 			last_read = vemu_get_slp_energy();
 		} break;
+		case TOTAL_CYCLES : {
+			last_read = vemu_get_cycles_all_classes();
+			vemu_debug("total_cycles: %llu\n", last_read);
+		} break;		
 		case ERRORS_EN : {
 			last_read = vemu_errors_enabled;
 		} break;
@@ -99,11 +104,11 @@ static void vemu_mod_write(void *opaque, target_phys_addr_t offset,
 {
 	switch (offset) {
 		case ERRORS_EN : {
-            /*
+            
 			if(val != vemu_errors_enabled) {
 				vemu_debug("vemu_errors_enabled = %llu\n", (unsigned long long)val);
 			}
-             */
+             
 			vemu_errors_enabled = val;
 		} break;
         case VEMU_EXIT : {

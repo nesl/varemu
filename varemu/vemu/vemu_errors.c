@@ -27,7 +27,7 @@ static void vemu_mul(CPUArchState * env, uint32_t instr_word)
 	int rs = (instr_word >> 8) & 0xf;
 	int rm = (instr_word) & 0xf;
     
-    env->regs[rd] = env->regs[rm] * env->regs[rs] + 1;    
+    env->regs[rd] = env->regs[rm] + env->regs[rs];    
 }
 
 static void vemu_mla(CPUArchState * env, uint32_t instr_word)
