@@ -16,20 +16,17 @@
 
 #define period_ns(F)	1e12/F
 
-uint64_t vemu_frequency = 1e9;
+uint64_t vemu_frequency = 100e9;
 
 uint64_t cycle_count[MAX_INSTR_CLASSES];
 uint64_t active_time[MAX_INSTR_CLASSES];
-uint64_t total_sleep_time;
+int64_t total_sleep_time;	// Can be negative if actual runtime is faster than virtual runtime
 
 uint64_t last_active_time_vm;
 uint64_t last_active_time_cycles;
 uint64_t last_sleep_time;
 
 bool entered_sleep_mode;
-
-uint64_t vemu_get_cycles(uint32_t class);
-
 
 uint64_t vemu_get_frequency(void)
 {
@@ -42,7 +39,7 @@ void vamu_set_frequency(uint64_t f)
 }
 
 
-uint64_t vemu_get_cycles(uint32_t class) 
+uint64_t vemu_get_cycles(uint8_t class) 
 {
 	assert(class < MAX_INSTR_CLASSES);
 	return cycle_count[class];
@@ -76,13 +73,16 @@ uint64_t vemu_get_act_time_all_classes(void)
 
 uint64_t vemu_get_slp_time(void) 
 {
+	int64_t retval = 0;
 	if (entered_sleep_mode) {
 		uint64_t time = qemu_get_clock_ns(vm_clock);
 		int64_t interval = time - last_sleep_time;
-		return total_sleep_time + interval;		
+		retval = total_sleep_time + interval;		
 	} else {
-		return total_sleep_time;
+		retval = total_sleep_time;
 	}
+	if (retval < 0) return 0;
+	return retval;
 }
 
 

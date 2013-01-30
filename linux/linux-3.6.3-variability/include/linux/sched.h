@@ -1592,7 +1592,7 @@ struct task_struct {
 #ifdef CONFIG_UPROBES
 	struct uprobe_task *utask;
 #endif
-    vemu_status vemu;
+    vemu_state vemu;
 };
 
 /* Future-safe accessor for struct task_struct's cpus_allowed. */

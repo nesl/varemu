@@ -19,6 +19,7 @@ void vemu_increment_cycles(vemu_instr_info * instr_info);
 void vemu_active_start(void);
 void vemu_sleep_start(void);
 uint64_t vemu_get_act_time(uint8_t class);
+uint64_t vemu_get_cycles(uint8_t class);
 uint64_t vemu_get_act_time_all_classes(void); 
 uint64_t vemu_get_cycles_all_classes(void);
 uint64_t vemu_get_slp_time(void);

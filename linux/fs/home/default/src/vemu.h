@@ -1,68 +1,71 @@
-#ifndef errors_h
-#define errors_h
+#ifndef vemu_h
+#define vemu_h
 
 #include <unistd.h>
-
 
 #define VAR_SYSCALL_READ 	378
 #define VAR_SYSCALL_WRITE 	379
 
-#define ACT_TIME_LO			0x000
-#define ACT_TIME_HI			0x280
-#define ACT_EN_LO			0x280
-#define ACT_EN_HI			0x500
-#define TOTAL_ACT_TIME		0x500
-#define TOTAL_SLP_TIME		0x540
-#define TOTAL_ACT_ENERGY	0x580
-#define TOTAL_SLP_ENERGY	0x5C0
-#define TOTAL_CYCLES		0x600
-#define ERRORS_EN			0xFC0
-#define VEMU_EXIT           0xFD0
+typedef unsigned long long uint64_t;
+typedef unsigned long uint32_t;
 
-unsigned long long vemu_read(unsigned int reg) {
-	unsigned long long tempv = 0;
-	syscall(VAR_SYSCALL_READ, reg, &tempv);
-	return tempv;
-}
 
-void vemu_write(unsigned int reg, unsigned long long val) {
+#define ACT_TIME			0x000
+#define ACT_EN				(ACT_TIME + 8*MAX_INSTR_CLASSES)
+#define CYCLES				(ACT_EN + 8*MAX_INSTR_CLASSES)
+#define TOTAL_ACT_TIME		(CYCLES + 8*MAX_INSTR_CLASSES)
+#define TOTAL_ACT_EN		(TOTAL_ACT_TIME + 8)
+#define TOTAL_CYCLES		(TOTAL_ACT_EN + 8)
+#define SLP_TIME			(TOTAL_CYCLES + 8)
+#define SLP_ENERGY			(SLP_TIME + 8)
+#define ERRORS_EN			(SLP_ENERGY + 8)
+
+#define READ_CMD       		(0xD00)
+#define EXIT_CMD           	(0xF00)
+
+#define	MAX_INSTR_CLASSES	8
+#define VEMU_STATE_N_VARS	(MAX_INSTR_CLASSES*3+6)
+
+#define	READ_HW				(0x1000000)
+#define	READ_SYS			(0x0100000)
+#define	READ_PROC			(0x0010000)
+
+typedef struct {
+	uint64_t act_time[MAX_INSTR_CLASSES];
+	uint64_t act_energy[MAX_INSTR_CLASSES];
+	uint64_t cycles[MAX_INSTR_CLASSES];    
+	uint64_t total_act_time;
+	uint64_t total_act_energy;
+	uint64_t total_cycles;  
+	uint64_t slp_time;
+	uint64_t slp_energy;  
+	uint64_t error_status;
+} vemu_regs;
+
+typedef union {
+	vemu_regs variables;
+	uint32_t array32[VEMU_STATE_N_VARS*2];
+	uint64_t array64[VEMU_STATE_N_VARS];
+} vemu_state;
+
+void vemu_write(uint32_t reg, unsigned long long val) {
 	unsigned long long int tempv;
 	tempv = val;
 	syscall(VAR_SYSCALL_WRITE, reg, &tempv);
 }
 
-unsigned long long vemu_read_offset(unsigned int base, unsigned int offset) {
-	unsigned int off = offset;
-	return vemu_read(off + base);
+void vemu_read(uint32_t regtype, vemu_regs * regs) {
+	syscall(VAR_SYSCALL_READ, regtype, regs);
 }
 
-unsigned long long vemu_get_act_time(unsigned int class) {
-	return vemu_read_offset(ACT_TIME_LO, class);
-}
-
-unsigned long long vemu_get_act_energy(unsigned int class) {
-	return vemu_read_offset(ACT_EN_LO, class);
-}
-
-unsigned long long vemu_get_total_cycles() {
-	return vemu_read(TOTAL_CYCLES);
-}
-
-unsigned long long vemu_get_total_act_time() {
-	return vemu_read(TOTAL_ACT_TIME);
-}
-
-unsigned long long vemu_get_total_slp_time() {
-	return vemu_read(TOTAL_SLP_TIME);
-}
-
-unsigned long long vemu_get_total_act_energy() {
-	return vemu_read(TOTAL_ACT_ENERGY);
-}
-
-unsigned long long vemu_get_total_slp_energy() {
-	return vemu_read(TOTAL_SLP_ENERGY);
-}
+void vemu_delta(vemu_regs * target, vemu_regs * new, vemu_regs * old)
+{
+	int i;
+	for (i = 0; i < VEMU_STATE_N_VARS - 1; i++) 
+	{
+		((vemu_state*)target)->array64[i] = ((vemu_state*)new)->array64[i] - ((vemu_state*)old)->array64[i];
+	}
+} 
 
 void vemu_enable_errors(unsigned long long idx) {
 	vemu_write(ERRORS_EN, idx);
@@ -73,7 +76,9 @@ void vemu_disable_errors() {
 }
 
 void vemu_kill() {
-	vemu_write(VEMU_EXIT, 1);
+	vemu_write(EXIT_CMD, 1);
 }
+
+
 
 #endif

@@ -9,31 +9,49 @@
 #ifndef _VARIABILITY_H_
 #define _VARIABILITY_H_
 
-#define VARMOD_BASE                 0x101F5000       /* Variability Module */
-#define VARMOD_ACT_TIME_LO			0x000
-#define VARMOD_ACT_TIME_HI			0x280
-#define VARMOD_ACT_EN_LO			0x280
-#define VARMOD_ACT_EN_HI			0x500
-#define VARMOD_TOTAL_ACT_TIME		0x500
-#define VARMOD_TOTAL_SLP_TIME		0x540
-#define VARMOD_TOTAL_ACT_ENERGY     0x580
-#define VARMOD_TOTAL_SLP_ENERGY     0x5C0
-#define VARMOD_TOTAL_CYCLES         0x600
-#define VARMOD_ERRORS_EN			0xFC0
-#define VARMOD_VEMU_EXIT            0xFD0
+#define VARMOD_BASE         0x101F5000       /* Variability Module */
 
-#define VARMOD_NUMBER_ICLASSES      10
+#define ACT_TIME			0x000
+#define ACT_EN				(ACT_TIME + 8*MAX_INSTR_CLASSES)
+#define CYCLES				(ACT_EN + 8*MAX_INSTR_CLASSES)
+#define TOTAL_ACT_TIME		(CYCLES + 8*MAX_INSTR_CLASSES)
+#define TOTAL_ACT_EN		(TOTAL_ACT_TIME + 8)
+#define TOTAL_CYCLES		(TOTAL_ACT_EN + 8)
+#define SLP_TIME			(TOTAL_CYCLES + 8)
+#define SLP_ENERGY			(SLP_TIME + 8)
+#define ERRORS_EN			(SLP_ENERGY + 8)
+
+#define READ_CMD       		(0xD00)
+#define EXIT_CMD           	(0xF00)
+
+#define	READ_HW				(0x1000000)
+#define	READ_SYS			(0x0100000)
+#define	READ_PROC			(0x0010000)
+
+
+#define	MAX_INSTR_CLASSES	8
+#define VEMU_STATE_N_VARS	(MAX_INSTR_CLASSES*3+6)
 
 typedef struct {
-    uint64_t vemu_act_time[VARMOD_NUMBER_ICLASSES];
-    uint64_t vemu_act_energy[VARMOD_NUMBER_ICLASSES];
-    uint64_t vemu_total_act_time;
-    uint64_t vemu_total_cycles;
-    uint64_t vemu_error_status;
-} vemu_status;
+	uint64_t act_time[MAX_INSTR_CLASSES];
+	uint64_t act_energy[MAX_INSTR_CLASSES];
+	uint64_t cycles[MAX_INSTR_CLASSES];    
+	uint64_t total_act_time;
+	uint64_t total_act_energy;
+	uint64_t total_cycles;  
+	uint64_t slp_time;
+	uint64_t slp_energy;  
+	uint64_t error_status;
+} vemu_regs;
 
-extern void vemu_save_error_status(vemu_status * proc);
-extern void vemu_restore_error_status(vemu_status * proc);
+typedef union {
+	vemu_regs variables;
+	uint32_t array32[VEMU_STATE_N_VARS*2];
+	uint64_t array64[VEMU_STATE_N_VARS];
+} vemu_state;
 
+
+extern void vemu_process_in(void);
+extern void vemu_process_out(void);
 
 #endif /* _VARIABILITY_H_ */

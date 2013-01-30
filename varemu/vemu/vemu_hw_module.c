@@ -17,17 +17,23 @@
 
 #define	READ_NOT_PENDING	0xFFFFF 
 #define VEMU_MOD_SIZE		0x1000
-#define ACT_TIME_LO			0x000
-#define ACT_TIME_HI			0x280
-#define ACT_EN_LO			0x280
-#define ACT_EN_HI			0x500
-#define TOTAL_ACT_TIME		0x500
-#define TOTAL_SLP_TIME		0x540
-#define TOTAL_ACT_ENERGY	0x580
-#define TOTAL_SLP_ENERGY	0x5C0
-#define TOTAL_CYCLES		0x600
-#define ERRORS_EN			0xFC0
-#define VEMU_EXIT           0xFD0
+
+#define ACT_TIME			0x000
+#define ACT_EN				(ACT_TIME + 8*MAX_INSTR_CLASSES)
+#define CYCLES				(ACT_EN + 8*MAX_INSTR_CLASSES)
+#define TOTAL_ACT_TIME		(CYCLES + 8*MAX_INSTR_CLASSES)
+#define TOTAL_ACT_EN		(TOTAL_ACT_TIME + 8)
+#define TOTAL_CYCLES		(TOTAL_ACT_EN + 8)
+#define SLP_TIME			(TOTAL_CYCLES + 8)
+#define SLP_ENERGY			(SLP_TIME + 8)
+#define ERRORS_EN			(SLP_ENERGY + 8)
+
+#define READ_CMD       		(0xD00)
+#define EXIT_CMD           	(0xF00)
+
+#define	MAX_INSTR_CLASSES	8
+#define VEMU_STATE_N_VARS	(MAX_INSTR_CLASSES*3+6)
+
 
 
 typedef struct {
@@ -36,82 +42,75 @@ typedef struct {
     MemoryRegion iomem;	
 } vemu_mod;
 
-static uint64_t last_offset = READ_NOT_PENDING;
-static uint64_t last_read = 0;
+typedef struct {
+	uint64_t act_time[MAX_INSTR_CLASSES];
+	uint64_t act_energy[MAX_INSTR_CLASSES];
+	uint64_t cycles[MAX_INSTR_CLASSES];    
+	uint64_t total_act_time;
+	uint64_t total_act_energy;
+	uint64_t total_cycles;  
+	uint64_t slp_time;
+	uint64_t slp_energy;  
+	uint64_t error_status;
+} vemu_regs;
+
+typedef union {
+	vemu_regs variables;
+	uint8_t  array8[VEMU_STATE_N_VARS*8];
+	uint32_t array32[VEMU_STATE_N_VARS*2];
+	uint64_t array64[VEMU_STATE_N_VARS];
+} vemu_state;
+
+vemu_state last_state;
 
 extern uint64_t vemu_errors_enabled;
 
 static uint64_t vemu_mod_read(void *opaque, target_phys_addr_t offset, unsigned size)
 {
-	
-	if (last_offset != READ_NOT_PENDING) {
-		if ((offset - 4) != last_offset) {
-			printf("VarMod: Can't read this register, read pending for offset: %x\n", (uint32_t)(last_offset+4));
-			return 0;
-		} else {
-			// we'll complete the read here, clear read pending
-			last_offset = READ_NOT_PENDING;	
-			return (uint32_t)(last_read >> 32);
-		}
-	} else {
-		if ((offset > VEMU_MOD_SIZE) | (offset % 8)) {
-			printf("VarMod: Invalid offset: %x\n", (uint32_t)offset);
-			return 0;
-		}
-		last_offset = offset;
-	}
-
-	if (offset < ACT_TIME_HI) {
-		int idx = (offset - ACT_TIME_LO)/8;
-		last_read = vemu_get_act_time(idx);
-		//printf("offset: %d, return = %u\n", offset, (uint32_t)last_read);
-		return (uint32_t)last_read;
-	}
-
-	if (offset < ACT_EN_HI) {
-		int idx = (offset - ACT_EN_LO)/8;
-		last_read = vemu_get_act_energy(idx);
-		//printf("offset: %d, return = %u\n", offset, (uint32_t)last_read);
-		return (uint32_t)last_read;
-	}
-	
-	switch (offset) {
-		case TOTAL_ACT_TIME : {
-			last_read = vemu_get_act_time_all_classes();
-		} break;
-		case TOTAL_SLP_TIME : {
-			last_read = vemu_get_slp_time();
-		} break;
-		case TOTAL_ACT_ENERGY : {
-			last_read = vemu_get_act_energy_all_classes();
-		} break;
-		case TOTAL_SLP_ENERGY : {
-			last_read = vemu_get_slp_energy();
-		} break;
-		case TOTAL_CYCLES : {
-			last_read = vemu_get_cycles_all_classes();
-			vemu_debug("total_cycles: %llu\n", last_read);
-		} break;		
-		case ERRORS_EN : {
-			last_read = vemu_errors_enabled;
-		} break;
-	}
-	return (uint32_t)last_read;
-	
+	uint64_t rv;
+	assert(offset <= VEMU_STATE_N_VARS * 8);
+	memcpy(&rv, &(last_state.array8[offset]), size);
+	return rv;	
 }
+/*
+static void print_state(vemu_state *state) 
+{
+	int i;
+	for (i = 0; i < VEMU_STATE_N_VARS; i++) {
+		printf("%02d %15llu\n", i, (long long unsigned)state->array64[i]);
+	}
+
+}
+*/
+
 static void vemu_mod_write(void *opaque, target_phys_addr_t offset,
                                  uint64_t val, unsigned size)
 {
 	switch (offset) {
-		case ERRORS_EN : {
-            
+		case ERRORS_EN : {   
+			/*  
 			if(val != vemu_errors_enabled) {
 				vemu_debug("vemu_errors_enabled = %llu\n", (unsigned long long)val);
 			}
-             
+			*/
 			vemu_errors_enabled = val;
 		} break;
-        case VEMU_EXIT : {
+		case READ_CMD : {
+			int i;
+			for (i = 0; i < MAX_INSTR_CLASSES; i++) {
+				last_state.variables.act_time[i] = vemu_get_act_time(i);
+				last_state.variables.act_energy[i] = vemu_get_act_energy(i);
+				last_state.variables.cycles[i] = vemu_get_cycles(i);
+			}		
+			last_state.variables.total_act_time = vemu_get_act_time_all_classes();
+			last_state.variables.total_act_energy = vemu_get_act_energy_all_classes();
+			last_state.variables.total_cycles = vemu_get_cycles_all_classes();
+			last_state.variables.slp_time = vemu_get_slp_time();
+			last_state.variables.slp_energy =	vemu_get_slp_energy();
+			last_state.variables.error_status = vemu_errors_enabled;
+			//print_state(&last_state);
+		} break;		
+        case EXIT_CMD : {
 			printf("Killing QEMU. I hope you unmounted all network filesystems...\n");
             exit(-1);
         } break;		
@@ -130,7 +129,7 @@ static int vemu_mod_init(SysBusDevice *dev)
     vemu_mod *s = FROM_SYSBUS(vemu_mod, dev);
     memory_region_init_io(&s->iomem, &vemu_mod_ops, s, "vemu", 0x1000);
     sysbus_init_mmio(dev, &s->iomem);	
-	sysbus_init_irq(dev, &s->irq);
+	sysbus_init_irq(dev, &s->irq);	
 	return 0;
 }
 
