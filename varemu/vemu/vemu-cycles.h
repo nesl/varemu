@@ -15,7 +15,7 @@
 #define 	MAX_INSTR_CLASSES	8
 
 void vemu_init_cycles(void);
-void vemu_increment_cycles(vemu_instr_info * instr_info);
+void vemu_increment_cycles(vemu_tb_info * tb_info);
 void vemu_active_start(void);
 void vemu_sleep_start(void);
 uint64_t vemu_get_act_time(uint8_t class);

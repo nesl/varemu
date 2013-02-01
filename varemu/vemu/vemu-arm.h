@@ -17,7 +17,7 @@
 
 vemu_instr_info* vemu_target_get_all_instr_info(bool thumb);
 int vemu_target_get_all_instr_size(bool thumb);
-void vemu_target_decode_instr(uint32_t instr, bool thumb, vemu_tb_info * info);
+void vemu_target_decode_instr(uint32_t instr, int thumb, vemu_tb_info * info);
 
 #endif // VEMU
 #endif // _vemu_arm_h

@@ -74,7 +74,7 @@ uint32_t vemu_error_replace(CPUArchState * env, TranslationBlock* tb)
 	
 	vemu_tb_info vemu_info = tb->vemu;
 	uint32_t instr_word = vemu_info.instr_word;
-    vemu_instr_info * instr_info = vemu_info.instr_info;
+    vemu_instr_info * instr_info = &(vemu_info.instr_info);
    
     int set_cond = (instr_word >> 20) & 0x1;
     if (set_cond) {

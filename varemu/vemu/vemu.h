@@ -41,7 +41,7 @@ typedef struct
 typedef struct
 {
 	uint32_t instr_word;
-    vemu_instr_info * instr_info;
+    vemu_instr_info instr_info;
 } vemu_tb_info;
 
 

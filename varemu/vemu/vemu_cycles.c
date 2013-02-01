@@ -12,6 +12,7 @@
 #include "qemu-timer.h"
 #include "vemu-cycles.h"
 
+
 #ifdef 	VEMU
 
 #define period_ns(F)	1e12/F
@@ -86,11 +87,16 @@ uint64_t vemu_get_slp_time(void)
 }
 
 
-void vemu_increment_cycles(vemu_instr_info * instr_info)
+void vemu_increment_cycles(vemu_tb_info * tb_info)
 {
+	vemu_instr_info * instr_info = &(tb_info->instr_info);
+	
     int class = instr_info->class;
     int cycles = instr_info->cycles;
 	assert(class < MAX_INSTR_CLASSES);
+	
+	//vemu_debug("Instruction %x (opcode %x): %s (%d cycles)\n", tb_info->instr_word, instr_info->opcode,  instr_info->name, instr_info->cycles);
+		
 	if(cycles == 0) {
 		vemu_debug("Warning: 0 cycles for opcode %x\n", instr_info->opcode);
 	}

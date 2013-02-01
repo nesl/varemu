@@ -250,7 +250,7 @@ void HELPER(vemu_info)(uint64_t val)
 {
     TranslationBlock * tb;
     tb = (TranslationBlock *)val;
-    vemu_increment_cycles(tb->vemu.instr_info);
+    vemu_increment_cycles(&(tb->vemu));
 }
 
 uint32_t HELPER(vemu_error_replace)(uint64_t val)

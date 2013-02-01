@@ -3357,20 +3357,42 @@ static inline void gen_jmp (DisasContext *s, uint32_t dest)
 }
 
 #ifdef VEMU
-static inline void gen_vemu_info(DisasContext * dc, int thumb)
+static inline void gen_vemu_info(DisasContext * dc)
 {
-    vemu_target_decode_instr(arm_ldl_code(dc->pc, dc->bswap_code), thumb, &dc->tb->vemu);
+	
+	uint32_t insn;
+	int thumb_type = 0;
+	
+    if (dc->thumb)  { 
+		insn = arm_lduw_code(dc->pc, dc->bswap_code);
+		if (((insn >> 12) == 0xF) | ((insn >> 12) == 0xE) ) {		
+			if (!(((insn & (1 << 12)) == 0) | (insn & (1 << 11)))) {
+				uint32_t insn_hw2 = arm_lduw_code(dc->pc+2, dc->bswap_code);
+				insn = (uint32_t)insn << 16 | insn_hw2; 
+				thumb_type = 2;	
+			}			
+		} else {
+			thumb_type = 1;
+		}
+	}
+	else {
+		insn = arm_ldl_code(dc->pc, dc->bswap_code);	
+		thumb_type = 0;
+	}
+		
+		
+    vemu_target_decode_instr(insn, thumb_type, &dc->tb->vemu);	
+    
     TCGv_i64 tb_ptr = tcg_temp_new_i64();
     tcg_gen_movi_i64(tb_ptr, (uint64_t)dc->tb);
     gen_helper_vemu_info(tb_ptr);
     tcg_temp_free_i64(tb_ptr);
 }
 
-static inline void gen_vemu_error_replace(DisasContext * dc, int thumb)
+static inline void gen_vemu_error_replace(DisasContext * dc)
 {
-    vemu_target_decode_instr(arm_ldl_code(dc->pc, dc->bswap_code), thumb, &dc->tb->vemu);
-    TCGv_i32 retval = tcg_temp_new_i32();
-    
+
+    TCGv_i32 retval = tcg_temp_new_i32();  
     
     TCGv_i64 tb_ptr = tcg_temp_new_i64();
     tcg_gen_movi_i64(tb_ptr, (uint64_t)dc->tb);
@@ -7951,7 +7973,7 @@ static int disas_thumb2_insn(CPUARMState *env, DisasContext *s, uint16_t insn_hw
     int shiftop;
     int conds;
     int logic_cc;
-
+    
     if (!(arm_feature(env, ARM_FEATURE_THUMB2)
           || arm_feature (env, ARM_FEATURE_M))) {
         /* Thumb-1 cores may need to treat bl and blx as a pair of
@@ -9026,7 +9048,7 @@ static void disas_thumb_insn(CPUARMState *env, DisasContext *s)
 
     insn = arm_lduw_code(s->pc, s->bswap_code);
     s->pc += 2;
-
+    
     switch (insn >> 12) {
     case 0: case 1:
 
@@ -9852,14 +9874,15 @@ static inline void gen_intermediate_code_internal(CPUARMState *env,
         if (unlikely(qemu_loglevel_mask(CPU_LOG_TB_OP))) {
             tcg_gen_debug_insn_start(dc->pc);
         }
+
+		#ifdef 	VEMU       
+        gen_vemu_info(dc);
+        if (dc->tb->vemu.instr_info.errors & VEMU_ERRORS_REPLACE) {
+            gen_vemu_error_replace(dc);
+        }         
+        #endif 
         
         if (dc->thumb) {
-			#ifdef 	VEMU
-            gen_vemu_info(dc, 1);
-            if (dc->tb->vemu.instr_info->errors & VEMU_ERRORS_REPLACE) {
-                gen_vemu_error_replace(dc, 1);
-            } 
-            #endif
             disas_thumb_insn(env, dc);
             if (dc->condexec_mask) {
                 dc->condexec_cond = (dc->condexec_cond & 0xe)
@@ -9870,12 +9893,6 @@ static inline void gen_intermediate_code_internal(CPUARMState *env,
                 }
             }
         } else {
-			#ifdef 	VEMU	
-            gen_vemu_info(dc, 0);
-            if (dc->tb->vemu.instr_info->errors == VEMU_ERRORS_REPLACE) {
-                gen_vemu_error_replace(dc, 0);
-            }
-            #endif
             disas_arm_insn(env, dc);
         }
 

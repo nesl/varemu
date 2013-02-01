@@ -4523,6 +4523,10 @@ vemu_instr_info vemu_arm_instr[] = {
 	{0xFFF,"SWI",CLASS_DEFAULT,CYCLES_SWI,ERRORS_DEFAULT}
 };
 
+vemu_instr_info vemu_thumb2_instr[] = {
+	{0xFFF,"UNKNOWN",CLASS_DEFAULT,CYCLES_DEFAULT,ERRORS_DEFAULT}
+};
+
 vemu_instr_info * vemu_target_get_all_instr_info(bool thumb) {
     if (thumb)
         return vemu_thumb_instr;
@@ -4537,23 +4541,30 @@ int vemu_target_get_all_instr_size(bool thumb) {
         return sizeof(vemu_arm_instr)/sizeof(vemu_instr_info);
 }
 
-void vemu_target_decode_instr(uint32_t instr, bool thumb, vemu_tb_info * info) {
+void vemu_target_decode_instr(uint32_t instr, int thumb, vemu_tb_info * info) {
     uint32_t opcode = 0;
     vemu_instr_info * instr_info = NULL;
-    if (thumb) {
+    if (thumb == 1) {
         opcode = (instr >> 12) & 0xF;
         opcode = (opcode << 4) | ((instr >> 8) & 0xF);
         instr_info = vemu_thumb_instr;
         assert(opcode <= 0xff);
-    } else {
+    } else if (thumb == 2) {
+        instr_info = vemu_thumb2_instr;
+		opcode = 0;
+	}    
+    else if (thumb == 0) {
         opcode = (instr >> 20) & 0xFF;
         opcode = (opcode << 4) | ((instr >> 4) & 0xF);
         instr_info = vemu_arm_instr;
         assert(opcode <= 0xfff);        
     }
     info->instr_word = instr;
-    info->instr_info = &(instr_info[opcode]);
-	
+    memcpy(&(info->instr_info), &(instr_info[opcode]), sizeof(vemu_instr_info));
+    
+	//vemu_debug("Instruction %x (%s opcode %x): %s (%d cycles)\n", instr, thumb ? "thumb" : "arm" , opcode,  instr_info[opcode].name, instr_info[opcode].cycles);
+    
+         	
 	if ( instr_info[opcode].cycles == 0) {
 		vemu_debug("No cycle info for instruction %x (%s opcode %x): %s (%d cycles)\n", instr, thumb ? "thumb" : "arm" , opcode,  instr_info[opcode].name, instr_info[opcode].cycles);
 	}
