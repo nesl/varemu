@@ -43,7 +43,7 @@ make menuconfig
 </pre>
 
 * Load an alternate config file, select ../linuxconfig
-* Sabe an alternate config file: .config
+* Save an alternate config file: .config
 
 <pre>
 make
