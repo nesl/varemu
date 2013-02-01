@@ -90,7 +90,9 @@ asmlinkage long sys_var_reg_read(int offset, uint64_t __user *dest) {
         vemu_read_state(src_ptr);
     }
     else if (offset & READ_PROC) {
+		vemu_process_out();
 		src_ptr = &(current->vemu);
+		vemu_process_in();
 	} 
 	else if (offset & READ_SYS) {
 		src_ptr = &vemu_state_sys;
