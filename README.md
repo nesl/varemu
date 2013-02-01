@@ -42,8 +42,8 @@ make versatile_defconfig
 make menuconfig
 </pre>
 
-* Under "Kernel features", select "Use the ARM EABI"
-* Build kernel
+* Load an alternate config file, select ../linuxconfig
+* Sabe an alternate config file: .config
 
 <pre>
 make
