@@ -13,8 +13,8 @@ Note: these instructions apply to mainline QEMU. The most recent version of VarE
 * Build QEMU with VarEMU extensions
 
 <pre>
-wget https://github.com/nesl/varemu/archive/master.zip
-unzip master.zip
+wget https://github.com/nesl/varemu/archive/mainline-qemu.zip
+unzip mainline-qemu.zip
 cd varemu-master/
 wget http://wiki.qemu-project.org/download/qemu-1.2.0.tar.bz2
 tar xjf qemu-1.2.0.tar.bz2
