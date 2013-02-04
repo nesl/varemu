@@ -2,6 +2,8 @@
 
 ## Build instructions
 
+Note: these instructions apply to mainline QEMU. The most recent version of VarEMU uses the Linaro patches.
+
 ### VarEMU
 
 * Download VarEMU source code.

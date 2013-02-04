@@ -95,7 +95,7 @@ void vemu_increment_cycles(vemu_tb_info * tb_info)
     int cycles = instr_info->cycles;
 	assert(class < MAX_INSTR_CLASSES);
 	
-	//vemu_debug("Instruction %x (opcode %x): %s (%d cycles)\n", tb_info->instr_word, instr_info->opcode,  instr_info->name, instr_info->cycles);
+	vemu_debug("Instruction %x (opcode %x): %s (%d cycles)\n", tb_info->instr_word, instr_info->opcode,  instr_info->name, instr_info->cycles);
 		
 	if(cycles == 0) {
 		vemu_debug("Warning: 0 cycles for opcode %x\n", instr_info->opcode);
