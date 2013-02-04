@@ -15,7 +15,7 @@ Note: these instructions apply to mainline QEMU. The most recent version of VarE
 <pre>
 wget https://github.com/nesl/varemu/archive/mainline-qemu.zip
 unzip mainline-qemu.zip
-cd varemu-master/
+cd varemu-mainline-qemu/
 wget http://wiki.qemu-project.org/download/qemu-1.2.0.tar.bz2
 tar xjf qemu-1.2.0.tar.bz2
 cp -r varemu/* qemu-1.2.0/
