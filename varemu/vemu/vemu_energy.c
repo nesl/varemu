@@ -10,9 +10,9 @@
 #include <math.h>
 #include "vemu.h"
 #include "qemu-common.h"
-#include "qemu-timer.h"
 #include "vemu-cycles.h"
 #include "vemu-energy.h"
+#include "qemu/timer.h"
 
 
 #ifdef 	VEMU

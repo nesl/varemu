@@ -7,9 +7,9 @@
 //
 
 #include <stdio.h>
+#include "qemu/timer.h"
 #include "vemu.h"
 #include "qemu-common.h"
-#include "qemu-timer.h"
 #include "vemu-cycles.h"
 
 

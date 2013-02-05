@@ -20,9 +20,9 @@
 #endif
 
 #include "qemu-common.h"
-#include "qjson.h"
-#include "qint.h"
-#include "qdict.h"
+#include "qapi/qmp/qjson.h"
+#include "qapi/qmp/qint.h"
+#include "qapi/qmp/qdict.h"
 
 #define VEMU_ERRORS_NONE        0x0
 #define VEMU_ERRORS_REPLACE     0x1

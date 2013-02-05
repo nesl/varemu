@@ -9,11 +9,12 @@
 
 #include <stdio.h>
 #include <math.h>
-#include "vemu.h"
 #include "qemu-common.h"
 #include "vemu-cycles.h"
 #include "vemu-energy.h"
 #include "hw/sysbus.h"
+#include "vemu.h"
+
 
 #define	READ_NOT_PENDING	0xFFFFF 
 #define VEMU_MOD_SIZE		0x1000
@@ -65,7 +66,7 @@ vemu_state last_state;
 
 extern uint64_t vemu_errors_enabled;
 
-static uint64_t vemu_mod_read(void *opaque, target_phys_addr_t offset, unsigned size)
+static uint64_t vemu_mod_read(void *opaque, hwaddr offset, unsigned size)
 {
 	uint64_t rv;
 	assert(offset <= VEMU_STATE_N_VARS * 8);
@@ -83,7 +84,7 @@ static void print_state(vemu_state *state)
 }
 */
 
-static void vemu_mod_write(void *opaque, target_phys_addr_t offset,
+static void vemu_mod_write(void *opaque, hwaddr offset,
                                  uint64_t val, unsigned size)
 {
 	switch (offset) {

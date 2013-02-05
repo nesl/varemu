@@ -5,7 +5,7 @@
 ### VarEMU
 
 * Download VarEMU source code.
-* Download and extract [qemu-1.2](http://wiki.qemu-project.org/download/qemu-1.2.0.tar.bz2):
+* Extract QEMU Linaro snapshot
 * Copy VarEMU extensions into QEMU
 * Configure QEMU
 * Build QEMU with VarEMU extensions
@@ -14,10 +14,9 @@
 wget https://github.com/nesl/varemu/archive/master.zip
 unzip master.zip
 cd varemu-master/
-wget http://wiki.qemu-project.org/download/qemu-1.2.0.tar.bz2
-tar xjf qemu-1.2.0.tar.bz2
-cp -r varemu/* qemu-1.2.0/
-cd qemu-1.2.0
+tar xjf qemu-linaro-13-02-04.tar.bz2
+cp -r varemu/* qemu-linaro/
+cd qemu-linaro
 ./configure --enable-sdl --disable-kvm --enable-debug --enable-debug-tcg --target-list=arm-softmmu
 make CFLAGS=-DVEMU
 cd ..

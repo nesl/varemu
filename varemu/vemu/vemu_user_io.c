@@ -12,9 +12,9 @@
 #include "vemu-arm.h" 
 #include "vemu-cycles.h" 
 #include "vemu-energy.h" 
-#include "qjson.h"
-#include "qint.h"
-#include "qdict.h"
+#include "qapi/qmp/qjson.h"
+#include "qapi/qmp/qint.h"
+#include "qapi/qmp/qdict.h"
 
 #ifdef 	VEMU
 

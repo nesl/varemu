@@ -27,9 +27,9 @@
 
 #include "config.h"
 #include "qemu-common.h"
-#include "cpu-defs.h"
+#include "exec/cpu-defs.h"
 
-#include "softfloat.h"
+#include "fpu/softfloat.h"
 
 #ifdef	VEMU
 #include "vemu/vemu.h"
@@ -48,6 +48,7 @@
 #define EXCP_EXCEPTION_EXIT  8   /* Return from v7M exception.  */
 #define EXCP_KERNEL_TRAP     9   /* Jumped to kernel code page.  */
 #define EXCP_STREX          10
+#define EXCP_SMC            11   /* secure monitor call */
 
 #define ARMV7M_EXCP_RESET   1
 #define ARMV7M_EXCP_NMI     2
@@ -91,9 +92,9 @@ typedef struct CPUARMState {
     uint32_t spsr;
 
     /* Banked registers.  */
-    uint32_t banked_spsr[6];
-    uint32_t banked_r13[6];
-    uint32_t banked_r14[6];
+    uint32_t banked_spsr[7];
+    uint32_t banked_r13[7];
+    uint32_t banked_r14[7];
 
     /* These hold r8-r12.  */
     uint32_t usr_regs[5];
@@ -117,6 +118,8 @@ typedef struct CPUARMState {
         uint32_t c1_coproc; /* Coprocessor access register.  */
         uint32_t c1_xscaleauxcr; /* XScale auxiliary control register.  */
         uint32_t c1_scr; /* secure config register.  */
+        uint32_t c1_sedbg; /* Secure debug enable register. */
+        uint32_t c1_nseac; /* Non-secure access control register. */
         uint32_t c2_base0; /* MMU translation table base 0.  */
         uint32_t c2_base0_hi; /* MMU translation table base 0, high 32 bits */
         uint32_t c2_base1; /* MMU translation table base 0.  */
@@ -143,6 +146,8 @@ typedef struct CPUARMState {
         uint32_t c9_pmxevtyper; /* perf monitor event type */
         uint32_t c9_pmuserenr; /* perf monitor user enable */
         uint32_t c9_pminten; /* perf monitor interrupt enables */
+        uint32_t c12_vbar; /* secure/nonsecure vector base address register. */
+        uint32_t c12_mvbar; /* monitor vector base address register. */
         uint32_t c13_fcse; /* FCSE PID.  */
         uint32_t c13_context; /* Context ID.  */
         uint32_t c13_tls1; /* User RW Thread register.  */
@@ -241,6 +246,7 @@ ARMCPU *cpu_arm_init(const char *cpu_model);
 void arm_translate_init(void);
 int cpu_arm_exec(CPUARMState *s);
 void do_interrupt(CPUARMState *);
+int bank_number(CPUARMState *env, int mode);
 void switch_mode(CPUARMState *, int);
 uint32_t do_arm_semihosting(CPUARMState *env);
 
@@ -335,6 +341,7 @@ enum arm_cpu_mode {
   ARM_CPU_MODE_FIQ = 0x11,
   ARM_CPU_MODE_IRQ = 0x12,
   ARM_CPU_MODE_SVC = 0x13,
+  ARM_CPU_MODE_SMC = 0x16,
   ARM_CPU_MODE_ABT = 0x17,
   ARM_CPU_MODE_UND = 0x1b,
   ARM_CPU_MODE_SYS = 0x1f
@@ -396,6 +403,7 @@ enum arm_features {
     ARM_FEATURE_MPIDR, /* has cp15 MPIDR */
     ARM_FEATURE_PXN, /* has Privileged Execute Never bit */
     ARM_FEATURE_LPAE, /* has Large Physical Address Extension */
+    ARM_FEATURE_TRUSTZONE, /* TrustZone Security Extensions. */
 };
 
 static inline int arm_feature(CPUARMState *env, int feature)
@@ -427,8 +435,6 @@ void armv7m_nvic_complete_irq(void *opaque, int irq);
 #define ENCODE_CP_REG(cp, is64, crn, crm, opc1, opc2)   \
     (((cp) << 16) | ((is64) << 15) | ((crn) << 11) |    \
      ((crm) << 7) | ((opc1) << 3) | (opc2))
-
-#define DECODE_CPREG_CRN(enc) (((enc) >> 7) & 0xf)
 
 /* ARMCPRegInfo type field bits. If the SPECIAL bit is set this is a
  * special-behaviour cp reg and bits [15..8] indicate what behaviour
@@ -666,7 +672,7 @@ static inline void cpu_clone_regs(CPUARMState *env, target_ulong newsp)
 }
 #endif
 
-#include "cpu-all.h"
+#include "exec/cpu-all.h"
 
 /* Bit usage in the TB flags field: */
 #define ARM_TBFLAG_THUMB_SHIFT      0
@@ -725,18 +731,19 @@ static inline void cpu_get_tb_cpu_state(CPUARMState *env, target_ulong *pc,
     }
 }
 
-static inline bool cpu_has_work(CPUARMState *env)
+static inline bool cpu_has_work(CPUState *cpu)
 {
+    CPUARMState *env = &ARM_CPU(cpu)->env;
 	bool rv = env->interrupt_request &
         (CPU_INTERRUPT_FIQ | CPU_INTERRUPT_HARD | CPU_INTERRUPT_EXITTB);
 	#ifdef VEMU
 	if (rv)
 		vemu_active_start();	
 	#endif
-	return rv;
+	return rv;    
 }
 
-#include "exec-all.h"
+#include "exec/exec-all.h"
 
 static inline void cpu_pc_from_tb(CPUARMState *env, TranslationBlock *tb)
 {
@@ -744,9 +751,10 @@ static inline void cpu_pc_from_tb(CPUARMState *env, TranslationBlock *tb)
 }
 
 /* Load an instruction and return it in the standard little-endian order */
-static inline uint32_t arm_ldl_code(uint32_t addr, bool do_swap)
+static inline uint32_t arm_ldl_code(CPUARMState *env, uint32_t addr,
+                                    bool do_swap)
 {
-    uint32_t insn = ldl_code(addr);
+    uint32_t insn = cpu_ldl_code(env, addr);
     if (do_swap) {
         return bswap32(insn);
     }
@@ -754,9 +762,10 @@ static inline uint32_t arm_ldl_code(uint32_t addr, bool do_swap)
 }
 
 /* Ditto, for a halfword (Thumb) instruction */
-static inline uint16_t arm_lduw_code(uint32_t addr, bool do_swap)
+static inline uint16_t arm_lduw_code(CPUARMState *env, uint32_t addr,
+                                     bool do_swap)
 {
-    uint16_t insn = lduw_code(addr);
+    uint16_t insn = cpu_lduw_code(env, addr);
     if (do_swap) {
         return bswap16(insn);
     }

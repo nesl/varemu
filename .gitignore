@@ -2,3 +2,4 @@ qmp_sock*
 faulty_mul
 qemu-1.2*
 zImage*
+qemu-linaro/
