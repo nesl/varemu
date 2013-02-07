@@ -1,0 +1,1334 @@
+Archive member included because of file (symbol)
+
+../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                              ../../../lm3s6965/inc/../util/uart_put.o (GPIODirModeSet)
+../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                              ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o) (IntRegister)
+../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                              ../../../lm3s6965/inc/../util/uart_put.o (SysCtlPeripheralEnable)
+../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                              ../../../lm3s6965/inc/../util/uart_put.o (UARTConfigSetExpClk)
+../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(cpu.o)
+                              ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o) (CPUcpsid)
+/opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-memcpy.o)
+                              ../../../vemu/vemu.o (memcpy)
+/opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-memset.o)
+                              ../../Source/tasks.o (memset)
+/opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-strlen.o)
+                              ../../../lm3s6965/inc/../util/uart_put.o (strlen)
+/opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-strncpy.o)
+                              ../../Source/tasks.o (strncpy)
+
+Allocating common symbols
+Common symbol       size              file
+
+bNewPLL             0x1               ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+xHighPriorityTask   0x4               ../Common/Minimal/QPeek.o
+xMediumPriorityTask
+                    0x4               ../Common/Minimal/QPeek.o
+xQueueRegistry      0x50              ../../Source/queue.o
+xHighestPriorityTask
+                    0x4               ../Common/Minimal/QPeek.o
+ulSysDiv            0x4               ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+xCreatedTask        0x4               ../Common/Minimal/death.o
+ulOsc               0x4               ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+ulOscSelect         0x4               ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x00000000         0x00040000         xr
+SRAM             0x20000000         0x00010000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD main.o
+LOAD ../../../lm3s6965/inc/../util/uart_put.o
+LOAD ../../../vemu/vemu.o
+LOAD ../Common/Minimal/BlockQ.o
+LOAD ../Common/Minimal/blocktim.o
+LOAD ../Common/Minimal/death.o
+LOAD ../Common/Minimal/integer.o
+LOAD ../Common/Minimal/PollQ.o
+LOAD ../Common/Minimal/semtest.o
+LOAD ../Common/Minimal/GenQTest.o
+LOAD ../Common/Minimal/QPeek.o
+LOAD ../Common/Minimal/recmutex.o
+LOAD ../../Source/list.o
+LOAD ../../Source/queue.o
+LOAD ../../Source/tasks.o
+LOAD ../../Source/portable/GCC/ARM_CM3/port.o
+LOAD ../../Source/portable/MemMang/heap_1.o
+LOAD startup.o
+LOAD ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a
+START GROUP
+LOAD /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/thumb2/libgcc.a
+LOAD /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a
+END GROUP
+
+.text           0x00000000     0x4c38
+ *(.isr_vector)
+ .isr_vector    0x00000000       0xf0 startup.o
+                0x00000000                g_pfnVectors
+ *(.text*)
+ .text          0x000000f0        0x0 main.o
+ .text.prvSetupHardware
+                0x000000f0       0x24 main.o
+                0x000000f0                prvSetupHardware
+ .text.main     0x00000114       0x80 main.o
+                0x00000114                main
+ .text          0x00000194        0x0 ../../../lm3s6965/inc/../util/uart_put.o
+ .text.itoa     0x00000194       0x68 ../../../lm3s6965/inc/../util/uart_put.o
+                0x00000194                itoa
+ .text._uart_puts
+                0x000001fc       0x2c ../../../lm3s6965/inc/../util/uart_put.o
+                0x000001fc                _uart_puts
+ .text.uputs    0x00000228       0x5c ../../../lm3s6965/inc/../util/uart_put.o
+                0x00000228                uputs
+ .text.uputx    0x00000284       0x24 ../../../lm3s6965/inc/../util/uart_put.o
+                0x00000284                uputx
+ .text.uputi    0x000002a8       0x18 ../../../lm3s6965/inc/../util/uart_put.o
+                0x000002a8                uputi
+ .text          0x000002c0        0x0 ../../../vemu/vemu.o
+ .text.vemu_delta
+                0x000002c0       0x28 ../../../vemu/vemu.o
+                0x000002c0                vemu_delta
+ .text.vemu_write_reg
+                0x000002e8       0x1c ../../../vemu/vemu.o
+                0x000002e8                vemu_write_reg
+ .text.vemu_read_reg
+                0x00000304       0x40 ../../../vemu/vemu.o
+                0x00000304                vemu_read_reg
+ .text.vemu_read_state
+                0x00000344       0x28 ../../../vemu/vemu.o
+                0x00000344                vemu_read_state
+ .text          0x0000036c        0x0 ../Common/Minimal/BlockQ.o
+ .text.xAreBlockingQueuesStillRunning
+                0x0000036c       0x5c ../Common/Minimal/BlockQ.o
+                0x0000036c                xAreBlockingQueuesStillRunning
+ .text.vStartBlockingQueueTasks
+                0x000003c8      0x158 ../Common/Minimal/BlockQ.o
+                0x000003c8                vStartBlockingQueueTasks
+ .text.vBlockingQueueProducer
+                0x00000520       0x3c ../Common/Minimal/BlockQ.o
+ .text.vBlockingQueueConsumer
+                0x0000055c       0x3a ../Common/Minimal/BlockQ.o
+ .text          0x00000596        0x0 ../Common/Minimal/blocktim.o
+ *fill*         0x00000596        0x2 00
+ .text.xAreBlockTimeTestTasksStillRunning
+                0x00000598       0x50 ../Common/Minimal/blocktim.o
+                0x00000598                xAreBlockTimeTestTasksStillRunning
+ .text.vCreateBlockTimeTasks
+                0x000005e8       0x64 ../Common/Minimal/blocktim.o
+                0x000005e8                vCreateBlockTimeTasks
+ .text.vSecondaryBlockTimeTestTask
+                0x0000064c       0xa0 ../Common/Minimal/blocktim.o
+ .text.vPrimaryBlockTimeTestTask
+                0x000006ec      0x25c ../Common/Minimal/blocktim.o
+ .text          0x00000948        0x0 ../Common/Minimal/death.o
+ .text.xIsCreateTaskStillRunning
+                0x00000948       0x48 ../Common/Minimal/death.o
+                0x00000948                xIsCreateTaskStillRunning
+ .text.vCreateSuicidalTasks
+                0x00000990       0x40 ../Common/Minimal/death.o
+                0x00000990                vCreateSuicidalTasks
+ .text.vCreateTasks
+                0x000009d0       0x60 ../Common/Minimal/death.o
+ .text.vSuicidalTask
+                0x00000a30       0x36 ../Common/Minimal/death.o
+ .text          0x00000a66        0x0 ../Common/Minimal/integer.o
+ *fill*         0x00000a66        0x2 00
+ .text.xAreIntegerMathsTaskStillRunning
+                0x00000a68       0x14 ../Common/Minimal/integer.o
+                0x00000a68                xAreIntegerMathsTaskStillRunning
+ .text.vStartIntegerMathTasks
+                0x00000a7c       0x28 ../Common/Minimal/integer.o
+                0x00000a7c                vStartIntegerMathTasks
+ .text.vCompeteingIntMathTask
+                0x00000aa4       0x4c ../Common/Minimal/integer.o
+ .text          0x00000af0        0x0 ../Common/Minimal/PollQ.o
+ .text.xArePollingQueuesStillRunning
+                0x00000af0       0x24 ../Common/Minimal/PollQ.o
+                0x00000af0                xArePollingQueuesStillRunning
+ .text.vStartPolledQueueTasks
+                0x00000b14       0x5c ../Common/Minimal/PollQ.o
+                0x00000b14                vStartPolledQueueTasks
+ .text.vPolledQueueProducer
+                0x00000b70       0x58 ../Common/Minimal/PollQ.o
+ .text.vPolledQueueConsumer
+                0x00000bc8       0x54 ../Common/Minimal/PollQ.o
+ .text          0x00000c1c        0x0 ../Common/Minimal/semtest.o
+ .text.xAreSemaphoreTasksStillRunning
+                0x00000c1c       0x58 ../Common/Minimal/semtest.o
+                0x00000c1c                xAreSemaphoreTasksStillRunning
+ .text.vStartSemaphoreTasks
+                0x00000c74       0xfc ../Common/Minimal/semtest.o
+                0x00000c74                vStartSemaphoreTasks
+ .text.prvSemaphoreTest
+                0x00000d70       0xb0 ../Common/Minimal/semtest.o
+ .text          0x00000e20        0x0 ../Common/Minimal/GenQTest.o
+ .text.xAreGenericQueueTasksStillRunning
+                0x00000e20       0x58 ../Common/Minimal/GenQTest.o
+                0x00000e20                xAreGenericQueueTasksStillRunning
+ .text.vStartGenericQueueTasks
+                0x00000e78       0xb4 ../Common/Minimal/GenQTest.o
+                0x00000e78                vStartGenericQueueTasks
+ .text.prvMediumPriorityMutexTask
+                0x00000f2c       0x18 ../Common/Minimal/GenQTest.o
+ .text.prvHighPriorityMutexTask
+                0x00000f44       0x40 ../Common/Minimal/GenQTest.o
+ .text.prvLowPriorityMutexTask
+                0x00000f84       0xcc ../Common/Minimal/GenQTest.o
+ .text.prvSendFrontAndBackTest
+                0x00001050      0x298 ../Common/Minimal/GenQTest.o
+ .text          0x000012e8        0x0 ../Common/Minimal/QPeek.o
+ .text.xAreQueuePeekTasksStillRunning
+                0x000012e8       0x34 ../Common/Minimal/QPeek.o
+                0x000012e8                xAreQueuePeekTasksStillRunning
+ .text.vStartQueuePeekTasks
+                0x0000131c       0xa8 ../Common/Minimal/QPeek.o
+                0x0000131c                vStartQueuePeekTasks
+ .text.prvHighestPriorityPeekTask
+                0x000013c4       0xdc ../Common/Minimal/QPeek.o
+ .text.prvHighPriorityPeekTask
+                0x000014a0       0x7c ../Common/Minimal/QPeek.o
+ .text.prvMediumPriorityPeekTask
+                0x0000151c       0x58 ../Common/Minimal/QPeek.o
+ .text.prvLowPriorityPeekTask
+                0x00001574       0xe8 ../Common/Minimal/QPeek.o
+ .text          0x0000165c        0x0 ../Common/Minimal/recmutex.o
+ .text.xAreRecursiveMutexTasksStillRunning
+                0x0000165c       0x6c ../Common/Minimal/recmutex.o
+                0x0000165c                xAreRecursiveMutexTasksStillRunning
+ .text.vStartRecursiveMutexTasks
+                0x000016c8       0x88 ../Common/Minimal/recmutex.o
+                0x000016c8                vStartRecursiveMutexTasks
+ .text.prvRecursiveMutexPollingTask
+                0x00001750       0x7c ../Common/Minimal/recmutex.o
+ .text.prvRecursiveMutexBlockingTask
+                0x000017cc       0x80 ../Common/Minimal/recmutex.o
+ .text.prvRecursiveMutexControllingTask
+                0x0000184c       0x90 ../Common/Minimal/recmutex.o
+ .text          0x000018dc        0x0 ../../Source/list.o
+ .text.vListInitialise
+                0x000018dc       0x16 ../../Source/list.o
+                0x000018dc                vListInitialise
+ .text.vListInitialiseItem
+                0x000018f2        0x6 ../../Source/list.o
+                0x000018f2                vListInitialiseItem
+ .text.vListInsertEnd
+                0x000018f8       0x1a ../../Source/list.o
+                0x000018f8                vListInsertEnd
+ .text.vListInsert
+                0x00001912       0x32 ../../Source/list.o
+                0x00001912                vListInsert
+ .text.uxListRemove
+                0x00001944       0x22 ../../Source/list.o
+                0x00001944                uxListRemove
+ .text          0x00001966        0x0 ../../Source/queue.o
+ .text.uxQueueMessagesWaitingFromISR
+                0x00001966        0x4 ../../Source/queue.o
+                0x00001966                uxQueueMessagesWaitingFromISR
+ .text.xQueueIsQueueEmptyFromISR
+                0x0000196a        0xc ../../Source/queue.o
+                0x0000196a                xQueueIsQueueEmptyFromISR
+ .text.xQueueIsQueueFullFromISR
+                0x00001976        0xe ../../Source/queue.o
+                0x00001976                xQueueIsQueueFullFromISR
+ .text.vQueueAddToRegistry
+                0x00001984       0x24 ../../Source/queue.o
+                0x00001984                vQueueAddToRegistry
+ .text.vQueueDelete
+                0x000019a8       0x34 ../../Source/queue.o
+                0x000019a8                vQueueDelete
+ .text.uxQueueMessagesWaiting
+                0x000019dc       0x12 ../../Source/queue.o
+                0x000019dc                uxQueueMessagesWaiting
+ .text.prvCopyDataFromQueue
+                0x000019ee       0x28 ../../Source/queue.o
+ .text.xQueueReceiveFromISR
+                0x00001a16       0x54 ../../Source/queue.o
+                0x00001a16                xQueueReceiveFromISR
+ .text.prvUnlockQueue
+                0x00001a6a       0x68 ../../Source/queue.o
+ .text.xQueueGenericReceive
+                0x00001ad2      0x112 ../../Source/queue.o
+                0x00001ad2                xQueueGenericReceive
+ .text.xQueueTakeMutexRecursive
+                0x00001be4       0x32 ../../Source/queue.o
+                0x00001be4                xQueueTakeMutexRecursive
+ .text.prvCopyDataToQueue
+                0x00001c16       0x58 ../../Source/queue.o
+ .text.xQueueGenericSendFromISR
+                0x00001c6e       0x5a ../../Source/queue.o
+                0x00001c6e                xQueueGenericSendFromISR
+ .text.xQueueGenericSend
+                0x00001cc8       0xec ../../Source/queue.o
+                0x00001cc8                xQueueGenericSend
+ .text.xQueueGiveMutexRecursive
+                0x00001db4       0x2c ../../Source/queue.o
+                0x00001db4                xQueueGiveMutexRecursive
+ .text.xQueueCreateMutex
+                0x00001de0       0x42 ../../Source/queue.o
+                0x00001de0                xQueueCreateMutex
+ .text.xQueueGenericReset
+                0x00001e22       0x5c ../../Source/queue.o
+                0x00001e22                xQueueGenericReset
+ .text.xQueueGenericCreate
+                0x00001e7e       0x40 ../../Source/queue.o
+                0x00001e7e                xQueueGenericCreate
+ .text          0x00001ebe        0x0 ../../Source/tasks.o
+ *fill*         0x00001ebe        0x2 00
+ .text.xTaskIsTaskSuspended
+                0x00001ec0       0x28 ../../Source/tasks.o
+                0x00001ec0                xTaskIsTaskSuspended
+ .text.vTaskSuspendAll
+                0x00001ee8       0x10 ../../Source/tasks.o
+                0x00001ee8                vTaskSuspendAll
+ .text.uxTaskGetNumberOfTasks
+                0x00001ef8        0xc ../../Source/tasks.o
+                0x00001ef8                uxTaskGetNumberOfTasks
+ .text.vTaskSwitchContext
+                0x00001f04       0x58 ../../Source/tasks.o
+                0x00001f04                vTaskSwitchContext
+ .text.vTaskSetTimeOutState
+                0x00001f5c       0x18 ../../Source/tasks.o
+                0x00001f5c                vTaskSetTimeOutState
+ .text.vTaskMissedYield
+                0x00001f74        0xc ../../Source/tasks.o
+                0x00001f74                vTaskMissedYield
+ .text.uxTaskGetStackHighWaterMark
+                0x00001f80       0x20 ../../Source/tasks.o
+                0x00001f80                uxTaskGetStackHighWaterMark
+ .text.xTaskGetCurrentTaskHandle
+                0x00001fa0        0xc ../../Source/tasks.o
+                0x00001fa0                xTaskGetCurrentTaskHandle
+ .text.vTaskPriorityDisinherit
+                0x00001fac       0x48 ../../Source/tasks.o
+                0x00001fac                vTaskPriorityDisinherit
+ .text.vTaskPriorityInherit
+                0x00001ff4       0x6c ../../Source/tasks.o
+                0x00001ff4                vTaskPriorityInherit
+ .text.xTaskRemoveFromEventList
+                0x00002060       0x64 ../../Source/tasks.o
+                0x00002060                xTaskRemoveFromEventList
+ .text.vTaskIncrementTick
+                0x000020c4       0xd4 ../../Source/tasks.o
+                0x000020c4                vTaskIncrementTick
+ .text.xTaskCheckForTimeOut
+                0x00002198       0x58 ../../Source/tasks.o
+                0x00002198                xTaskCheckForTimeOut
+ .text.xTaskGetTickCount
+                0x000021f0       0x18 ../../Source/tasks.o
+                0x000021f0                xTaskGetTickCount
+ .text.uxTaskPriorityGet
+                0x00002208       0x1c ../../Source/tasks.o
+                0x00002208                uxTaskPriorityGet
+ .text.prvAddCurrentTaskToDelayedList
+                0x00002224       0x50 ../../Source/tasks.o
+ .text.vTaskPlaceOnEventList
+                0x00002274       0x44 ../../Source/tasks.o
+                0x00002274                vTaskPlaceOnEventList
+ .text.xTaskGetTickCountFromISR
+                0x000022b8       0x18 ../../Source/tasks.o
+                0x000022b8                xTaskGetTickCountFromISR
+ .text.xTaskResumeFromISR
+                0x000022d0       0x80 ../../Source/tasks.o
+                0x000022d0                xTaskResumeFromISR
+ .text.xTaskResumeAll
+                0x00002350       0xc0 ../../Source/tasks.o
+                0x00002350                xTaskResumeAll
+ .text.vTaskResume
+                0x00002410       0x68 ../../Source/tasks.o
+                0x00002410                vTaskResume
+ .text.vTaskSuspend
+                0x00002478       0x7c ../../Source/tasks.o
+                0x00002478                vTaskSuspend
+ .text.vTaskPrioritySet
+                0x000024f4       0x98 ../../Source/tasks.o
+                0x000024f4                vTaskPrioritySet
+ .text.vTaskDelay
+                0x0000258c       0x38 ../../Source/tasks.o
+                0x0000258c                vTaskDelay
+ .text.vTaskDelayUntil
+                0x000025c4       0x5c ../../Source/tasks.o
+                0x000025c4                vTaskDelayUntil
+ .text.vTaskDelete
+                0x00002620       0x74 ../../Source/tasks.o
+                0x00002620                vTaskDelete
+ .text.vTaskEndScheduler
+                0x00002694       0x18 ../../Source/tasks.o
+                0x00002694                vTaskEndScheduler
+ .text.prvIdleTask
+                0x000026ac       0x54 ../../Source/tasks.o
+ .text.xTaskGenericCreate
+                0x00002700      0x1ac ../../Source/tasks.o
+                0x00002700                xTaskGenericCreate
+ .text.vTaskStartScheduler
+                0x000028ac       0x4c ../../Source/tasks.o
+                0x000028ac                vTaskStartScheduler
+ .text          0x000028f8        0x0 ../../Source/portable/GCC/ARM_CM3/port.o
+ .text.pxPortInitialiseStack
+                0x000028f8       0x20 ../../Source/portable/GCC/ARM_CM3/port.o
+                0x000028f8                pxPortInitialiseStack
+ .text.vPortSVCHandler
+                0x00002918       0x20 ../../Source/portable/GCC/ARM_CM3/port.o
+                0x00002918                vPortSVCHandler
+ .text.prvPortStartFirstTask
+                0x00002938       0x14 ../../Source/portable/GCC/ARM_CM3/port.o
+ .text.vPortEndScheduler
+                0x0000294c        0x2 ../../Source/portable/GCC/ARM_CM3/port.o
+                0x0000294c                vPortEndScheduler
+ *fill*         0x0000294e        0x2 00
+ .text.vPortYieldFromISR
+                0x00002950       0x10 ../../Source/portable/GCC/ARM_CM3/port.o
+                0x00002950                vPortYieldFromISR
+ .text.ulPortSetInterruptMask
+                0x00002960       0x10 ../../Source/portable/GCC/ARM_CM3/port.o
+                0x00002960                ulPortSetInterruptMask
+ .text.vPortEnterCritical
+                0x00002970       0x14 ../../Source/portable/GCC/ARM_CM3/port.o
+                0x00002970                vPortEnterCritical
+ .text.vPortClearInterruptMask
+                0x00002984        0x6 ../../Source/portable/GCC/ARM_CM3/port.o
+                0x00002984                vPortClearInterruptMask
+ *fill*         0x0000298a        0x2 00
+ .text.vPortExitCritical
+                0x0000298c       0x14 ../../Source/portable/GCC/ARM_CM3/port.o
+                0x0000298c                vPortExitCritical
+ .text.xPortPendSVHandler
+                0x000029a0       0x3c ../../Source/portable/GCC/ARM_CM3/port.o
+                0x000029a0                xPortPendSVHandler
+ .text.vPortSetupTimerInterrupt
+                0x000029dc       0x14 ../../Source/portable/GCC/ARM_CM3/port.o
+                0x000029dc                vPortSetupTimerInterrupt
+ .text.xPortStartScheduler
+                0x000029f0       0x30 ../../Source/portable/GCC/ARM_CM3/port.o
+                0x000029f0                xPortStartScheduler
+ .text.xPortSysTickHandler
+                0x00002a20       0x20 ../../Source/portable/GCC/ARM_CM3/port.o
+                0x00002a20                xPortSysTickHandler
+ .text          0x00002a40        0x0 ../../Source/portable/MemMang/heap_1.o
+ .text.vPortFree
+                0x00002a40        0x2 ../../Source/portable/MemMang/heap_1.o
+                0x00002a40                vPortFree
+ *fill*         0x00002a42        0x2 00
+ .text.vPortInitialiseBlocks
+                0x00002a44        0xc ../../Source/portable/MemMang/heap_1.o
+                0x00002a44                vPortInitialiseBlocks
+ .text.xPortGetFreeHeapSize
+                0x00002a50       0x10 ../../Source/portable/MemMang/heap_1.o
+                0x00002a50                xPortGetFreeHeapSize
+ .text.pvPortMalloc
+                0x00002a60       0x40 ../../Source/portable/MemMang/heap_1.o
+                0x00002a60                pvPortMalloc
+ .text          0x00002aa0        0x0 startup.o
+ .text.NmiSR    0x00002aa0        0x4 startup.o
+ .text.FaultISR
+                0x00002aa4        0x4 startup.o
+ .text.IntDefaultHandler
+                0x00002aa8        0x4 startup.o
+ .text.uipprintf
+                0x00002aac        0xc startup.o
+                0x00002aac                uipprintf
+ .text.ResetISR
+                0x00002ab8       0x74 startup.o
+                0x00002ab8                ResetISR
+ .text          0x00002b2c        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+ .text.GPIOGetIntNumber
+                0x00002b2c      0x144 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+ .text.GPIODirModeSet
+                0x00002c70       0x32 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002c70                GPIODirModeSet
+ .text.GPIODirModeGet
+                0x00002ca2       0x22 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002ca2                GPIODirModeGet
+ .text.GPIOIntTypeSet
+                0x00002cc4       0x52 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002cc4                GPIOIntTypeSet
+ .text.GPIOIntTypeGet
+                0x00002d16       0x2e ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002d16                GPIOIntTypeGet
+ .text.GPIOPadConfigSet
+                0x00002d44       0xee ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002d44                GPIOPadConfigSet
+ .text.GPIOPadConfigGet
+                0x00002e32       0x90 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002e32                GPIOPadConfigGet
+ .text.GPIOPinIntEnable
+                0x00002ec2        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002ec2                GPIOPinIntEnable
+ .text.GPIOPinIntDisable
+                0x00002ece        0xe ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002ece                GPIOPinIntDisable
+ .text.GPIOPinIntStatus
+                0x00002edc        0xe ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002edc                GPIOPinIntStatus
+ .text.GPIOPinIntClear
+                0x00002eea        0x6 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002eea                GPIOPinIntClear
+ .text.GPIOPinRead
+                0x00002ef0        0x6 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002ef0                GPIOPinRead
+ .text.GPIOPinWrite
+                0x00002ef6        0x6 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002ef6                GPIOPinWrite
+ .text.GPIOPinTypeADC
+                0x00002efc       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002efc                GPIOPinTypeADC
+ .text.GPIOPinTypeCAN
+                0x00002f18       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002f18                GPIOPinTypeCAN
+ .text.GPIOPinTypeComparator
+                0x00002f34       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002f34                GPIOPinTypeComparator
+ .text.GPIOPinTypeEPI
+                0x00002f50       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002f50                GPIOPinTypeEPI
+ .text.GPIOPinTypeEthernetLED
+                0x00002f6c       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002f6c                GPIOPinTypeEthernetLED
+ .text.GPIOPinTypeEthernetMII
+                0x00002f88       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002f88                GPIOPinTypeEthernetMII
+ .text.GPIOPinTypeFan
+                0x00002fa4       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002fa4                GPIOPinTypeFan
+ .text.GPIOPinTypeGPIOInput
+                0x00002fc0       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002fc0                GPIOPinTypeGPIOInput
+ .text.GPIOPinTypeGPIOOutput
+                0x00002fdc       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002fdc                GPIOPinTypeGPIOOutput
+ .text.GPIOPinTypeGPIOOutputOD
+                0x00002ff8       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00002ff8                GPIOPinTypeGPIOOutputOD
+ .text.GPIOPinTypeI2C
+                0x00003014       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00003014                GPIOPinTypeI2C
+ .text.GPIOPinTypeI2CSCL
+                0x00003030       0x90 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00003030                GPIOPinTypeI2CSCL
+ .text.GPIOPinTypeI2S
+                0x000030c0       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x000030c0                GPIOPinTypeI2S
+ .text.GPIOPinTypeLPC
+                0x000030dc       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x000030dc                GPIOPinTypeLPC
+ .text.GPIOPinTypePECIRx
+                0x000030f8       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x000030f8                GPIOPinTypePECIRx
+ .text.GPIOPinTypePECITx
+                0x00003114       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00003114                GPIOPinTypePECITx
+ .text.GPIOPinTypePWM
+                0x00003130       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00003130                GPIOPinTypePWM
+ .text.GPIOPinTypeQEI
+                0x0000314c       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x0000314c                GPIOPinTypeQEI
+ .text.GPIOPinTypeSSI
+                0x00003168       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00003168                GPIOPinTypeSSI
+ .text.GPIOPinTypeTimer
+                0x00003184       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00003184                GPIOPinTypeTimer
+ .text.GPIOPinTypeUART
+                0x000031a0       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x000031a0                GPIOPinTypeUART
+ .text.GPIOPinTypeUSBAnalog
+                0x000031bc       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x000031bc                GPIOPinTypeUSBAnalog
+ .text.GPIOPinTypeUSBDigital
+                0x000031d8       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x000031d8                GPIOPinTypeUSBDigital
+ .text.GPIOPinConfigure
+                0x000031f4       0x4c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x000031f4                GPIOPinConfigure
+ .text.GPIODMATriggerEnable
+                0x00003240        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00003240                GPIODMATriggerEnable
+ .text.GPIODMATriggerDisable
+                0x0000324c        0xe ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x0000324c                GPIODMATriggerDisable
+ .text.GPIOADCTriggerEnable
+                0x0000325a        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x0000325a                GPIOADCTriggerEnable
+ .text.GPIOADCTriggerDisable
+                0x00003266        0xe ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00003266                GPIOADCTriggerDisable
+ .text.GPIOPortIntUnregister
+                0x00003274       0x16 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x00003274                GPIOPortIntUnregister
+ .text.GPIOPortIntRegister
+                0x0000328a       0x1a ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+                0x0000328a                GPIOPortIntRegister
+ .text          0x000032a4        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+ .text.IntDefaultHandler
+                0x000032a4        0x2 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+ *fill*         0x000032a6        0x2 00
+ .text.IntRegister
+                0x000032a8       0x34 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x000032a8                IntRegister
+ .text.IntUnregister
+                0x000032dc       0x14 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x000032dc                IntUnregister
+ .text.IntPriorityGroupingSet
+                0x000032f0       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x000032f0                IntPriorityGroupingSet
+ .text.IntPriorityGroupingGet
+                0x0000330c       0x24 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x0000330c                IntPriorityGroupingGet
+ .text.IntPrioritySet
+                0x00003330       0x28 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x00003330                IntPrioritySet
+ .text.IntPriorityGet
+                0x00003358       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x00003358                IntPriorityGet
+ .text.IntEnable
+                0x00003374       0x60 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x00003374                IntEnable
+ .text.IntDisable
+                0x000033d4       0x60 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x000033d4                IntDisable
+ .text.IntIsEnabled
+                0x00003434       0x64 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x00003434                IntIsEnabled
+ .text.IntPendSet
+                0x00003498       0x50 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x00003498                IntPendSet
+ .text.IntPendClear
+                0x000034e8       0x40 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x000034e8                IntPendClear
+ .text.IntPriorityMaskGet
+                0x00003528        0x4 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x00003528                IntPriorityMaskGet
+ .text.IntPriorityMaskSet
+                0x0000352c        0x4 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x0000352c                IntPriorityMaskSet
+ .text.IntMasterDisable
+                0x00003530        0xa ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x00003530                IntMasterDisable
+ .text.IntMasterEnable
+                0x0000353a        0xa ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+                0x0000353a                IntMasterEnable
+ .text          0x00003544        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+ .text.SysCtlPeripheralMapToNew
+                0x00003544       0x20 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+ .text.SysCtlSRAMSizeGet
+                0x00003564       0x14 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003564                SysCtlSRAMSizeGet
+ .text.SysCtlFlashSizeGet
+                0x00003578       0x14 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003578                SysCtlFlashSizeGet
+ .text.SysCtlPinPresent
+                0x0000358c       0x14 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x0000358c                SysCtlPinPresent
+ .text.SysCtlPeripheralPresent
+                0x000035a0       0x7c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x000035a0                SysCtlPeripheralPresent
+ .text.SysCtlPeripheralReady
+                0x0000361c       0x38 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x0000361c                SysCtlPeripheralReady
+ .text.SysCtlPeripheralPowerOn
+                0x00003654       0x38 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003654                SysCtlPeripheralPowerOn
+ .text.SysCtlPeripheralPowerOff
+                0x0000368c       0x38 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x0000368c                SysCtlPeripheralPowerOff
+ .text.SysCtlPeripheralReset
+                0x000036c4       0x8c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x000036c4                SysCtlPeripheralReset
+ .text.SysCtlPeripheralEnable
+                0x00003750       0x5c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003750                SysCtlPeripheralEnable
+ .text.SysCtlPeripheralDisable
+                0x000037ac       0x5c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x000037ac                SysCtlPeripheralDisable
+ .text.SysCtlPeripheralSleepEnable
+                0x00003808       0x5c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003808                SysCtlPeripheralSleepEnable
+ .text.SysCtlPeripheralSleepDisable
+                0x00003864       0x5c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003864                SysCtlPeripheralSleepDisable
+ .text.SysCtlPeripheralDeepSleepEnable
+                0x000038c0       0x5c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x000038c0                SysCtlPeripheralDeepSleepEnable
+ .text.SysCtlPeripheralDeepSleepDisable
+                0x0000391c       0x5c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x0000391c                SysCtlPeripheralDeepSleepDisable
+ .text.SysCtlPeripheralClockGating
+                0x00003978       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003978                SysCtlPeripheralClockGating
+ .text.SysCtlIntEnable
+                0x00003994       0x10 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003994                SysCtlIntEnable
+ .text.SysCtlIntDisable
+                0x000039a4       0x10 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x000039a4                SysCtlIntDisable
+ .text.SysCtlIntClear
+                0x000039b4        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x000039b4                SysCtlIntClear
+ .text.SysCtlIntStatus
+                0x000039c0       0x18 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x000039c0                SysCtlIntStatus
+ .text.SysCtlLDOSet
+                0x000039d8        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x000039d8                SysCtlLDOSet
+ .text.SysCtlLDOGet
+                0x000039e4        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x000039e4                SysCtlLDOGet
+ .text.SysCtlLDOConfigSet
+                0x000039f0        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x000039f0                SysCtlLDOConfigSet
+ .text.SysCtlReset
+                0x000039fc       0x10 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x000039fc                SysCtlReset
+ .text.SysCtlResetCauseGet
+                0x00003a0c        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003a0c                SysCtlResetCauseGet
+ .text.SysCtlResetCauseClear
+                0x00003a18       0x10 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003a18                SysCtlResetCauseClear
+ .text.SysCtlBrownOutConfigSet
+                0x00003a28       0x10 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003a28                SysCtlBrownOutConfigSet
+ .text.SysCtlDelay
+                0x00003a38        0x6 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003a38                SysCtlDelay
+ *fill*         0x00003a3e        0x2 00
+ .text.SysCtlMOSCConfigSet
+                0x00003a40        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003a40                SysCtlMOSCConfigSet
+ .text.SysCtlPIOSCCalibrate
+                0x00003a4c       0x54 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003a4c                SysCtlPIOSCCalibrate
+ .text.SysCtlClockSet
+                0x00003aa0      0x178 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003aa0                SysCtlClockSet
+ .text.SysCtlClockGet
+                0x00003c18      0x234 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003c18                SysCtlClockGet
+ .text.SysCtlDeepSleepClockSet
+                0x00003e4c        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003e4c                SysCtlDeepSleepClockSet
+ .text.SysCtlPWMClockSet
+                0x00003e58       0x14 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003e58                SysCtlPWMClockSet
+ .text.SysCtlPWMClockGet
+                0x00003e6c       0x18 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003e6c                SysCtlPWMClockGet
+ .text.SysCtlADCSpeedSet
+                0x00003e84       0x20 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003e84                SysCtlADCSpeedSet
+ .text.SysCtlADCSpeedGet
+                0x00003ea4       0x10 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003ea4                SysCtlADCSpeedGet
+ .text.SysCtlIOSCVerificationSet
+                0x00003eb4       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003eb4                SysCtlIOSCVerificationSet
+ .text.SysCtlMOSCVerificationSet
+                0x00003ed0       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003ed0                SysCtlMOSCVerificationSet
+ .text.SysCtlPLLVerificationSet
+                0x00003eec       0x1c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003eec                SysCtlPLLVerificationSet
+ .text.SysCtlClkVerificationClear
+                0x00003f08       0x10 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003f08                SysCtlClkVerificationClear
+ .text.SysCtlGPIOAHBEnable
+                0x00003f18       0x14 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003f18                SysCtlGPIOAHBEnable
+ .text.SysCtlGPIOAHBDisable
+                0x00003f2c       0x14 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003f2c                SysCtlGPIOAHBDisable
+ .text.SysCtlUSBPLLEnable
+                0x00003f40       0x10 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003f40                SysCtlUSBPLLEnable
+ .text.SysCtlUSBPLLDisable
+                0x00003f50       0x10 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003f50                SysCtlUSBPLLDisable
+ .text.SysCtlI2SMClkSet
+                0x00003f60       0xec ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00003f60                SysCtlI2SMClkSet
+ .text.SysCtlDeepSleep
+                0x0000404c       0x20 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x0000404c                SysCtlDeepSleep
+ .text.SysCtlSleep
+                0x0000406c        0x4 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x0000406c                SysCtlSleep
+ .text.SysCtlIntUnregister
+                0x00004070       0x12 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00004070                SysCtlIntUnregister
+ .text.SysCtlIntRegister
+                0x00004082       0x14 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x00004082                SysCtlIntRegister
+ .text          0x00004096        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+ *fill*         0x00004096        0x2 00
+ .text.UARTIntNumberGet
+                0x00004098       0x24 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+ .text.UARTParityModeSet
+                0x000040bc        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000040bc                UARTParityModeSet
+ .text.UARTParityModeGet
+                0x000040c8        0x8 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000040c8                UARTParityModeGet
+ .text.UARTFIFOLevelSet
+                0x000040d0        0x6 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000040d0                UARTFIFOLevelSet
+ .text.UARTFIFOLevelGet
+                0x000040d6       0x10 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000040d6                UARTFIFOLevelGet
+ .text.UARTConfigGetExpClk
+                0x000040e6       0x28 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000040e6                UARTConfigGetExpClk
+ .text.UARTEnable
+                0x0000410e       0x16 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x0000410e                UARTEnable
+ .text.UARTDisable
+                0x00004124       0x1e ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004124                UARTDisable
+ .text.UARTConfigSetExpClk
+                0x00004142       0x4c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004142                UARTConfigSetExpClk
+ .text.UARTFIFOEnable
+                0x0000418e        0xa ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x0000418e                UARTFIFOEnable
+ .text.UARTFIFODisable
+                0x00004198        0xa ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004198                UARTFIFODisable
+ .text.UARTEnableSIR
+                0x000041a2       0x14 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000041a2                UARTEnableSIR
+ .text.UARTDisableSIR
+                0x000041b6        0xa ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000041b6                UARTDisableSIR
+ .text.UARTSmartCardEnable
+                0x000041c0       0x16 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000041c0                UARTSmartCardEnable
+ .text.UARTSmartCardDisable
+                0x000041d6        0xa ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000041d6                UARTSmartCardDisable
+ .text.UARTModemControlSet
+                0x000041e0        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000041e0                UARTModemControlSet
+ .text.UARTModemControlClear
+                0x000041ec        0xe ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000041ec                UARTModemControlClear
+ .text.UARTModemControlGet
+                0x000041fa        0x8 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000041fa                UARTModemControlGet
+ .text.UARTModemStatusGet
+                0x00004202        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004202                UARTModemStatusGet
+ .text.UARTFlowControlSet
+                0x0000420e        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x0000420e                UARTFlowControlSet
+ .text.UARTFlowControlGet
+                0x0000421a        0x8 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x0000421a                UARTFlowControlGet
+ .text.UARTTxIntModeSet
+                0x00004222        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004222                UARTTxIntModeSet
+ .text.UARTTxIntModeGet
+                0x0000422e        0x8 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x0000422e                UARTTxIntModeGet
+ .text.UARTCharsAvail
+                0x00004236        0xe ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004236                UARTCharsAvail
+ .text.UARTSpaceAvail
+                0x00004244        0xe ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004244                UARTSpaceAvail
+ .text.UARTCharGetNonBlocking
+                0x00004252       0x10 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004252                UARTCharGetNonBlocking
+ .text.UARTCharGet
+                0x00004262        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004262                UARTCharGet
+ .text.UARTCharPutNonBlocking
+                0x0000426e       0x12 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x0000426e                UARTCharPutNonBlocking
+ .text.UARTCharPut
+                0x00004280        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004280                UARTCharPut
+ .text.UARTBreakCtl
+                0x0000428c       0x18 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x0000428c                UARTBreakCtl
+ .text.UARTBusy
+                0x000042a4        0xa ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000042a4                UARTBusy
+ .text.UARTIntEnable
+                0x000042ae        0x8 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000042ae                UARTIntEnable
+ .text.UARTIntDisable
+                0x000042b6        0xa ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000042b6                UARTIntDisable
+ .text.UARTIntStatus
+                0x000042c0        0xa ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000042c0                UARTIntStatus
+ .text.UARTIntClear
+                0x000042ca        0x4 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000042ca                UARTIntClear
+ .text.UARTDMAEnable
+                0x000042ce        0x8 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000042ce                UARTDMAEnable
+ .text.UARTDMADisable
+                0x000042d6        0xa ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000042d6                UARTDMADisable
+ .text.UARTRxErrorGet
+                0x000042e0        0x8 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000042e0                UARTRxErrorGet
+ .text.UARTRxErrorClear
+                0x000042e8        0x6 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000042e8                UARTRxErrorClear
+ .text.UARTClockSourceSet
+                0x000042ee        0x6 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000042ee                UARTClockSourceSet
+ .text.UARTClockSourceGet
+                0x000042f4        0x6 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000042f4                UARTClockSourceGet
+ .text.UART9BitEnable
+                0x000042fa        0xe ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x000042fa                UART9BitEnable
+ .text.UART9BitDisable
+                0x00004308        0xe ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004308                UART9BitDisable
+ .text.UART9BitAddrSet
+                0x00004316        0xa ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004316                UART9BitAddrSet
+ .text.UART9BitAddrSend
+                0x00004320       0x28 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004320                UART9BitAddrSend
+ .text.UARTIntUnregister
+                0x00004348       0x16 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004348                UARTIntUnregister
+ .text.UARTIntRegister
+                0x0000435e       0x1a ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x0000435e                UARTIntRegister
+ .text          0x00004378        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(cpu.o)
+ .text.CPUcpsid
+                0x00004378        0x8 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(cpu.o)
+                0x00004378                CPUcpsid
+ .text.CPUprimask
+                0x00004380        0x6 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(cpu.o)
+                0x00004380                CPUprimask
+ .text.CPUcpsie
+                0x00004386        0x8 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(cpu.o)
+                0x00004386                CPUcpsie
+ .text.CPUwfi   0x0000438e        0x4 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(cpu.o)
+                0x0000438e                CPUwfi
+ .text.CPUbasepriSet
+                0x00004392        0x6 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(cpu.o)
+                0x00004392                CPUbasepriSet
+ .text.CPUbasepriGet
+                0x00004398        0x6 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(cpu.o)
+                0x00004398                CPUbasepriGet
+ *fill*         0x0000439e        0x2 00
+ .text          0x000043a0      0x190 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-memcpy.o)
+                0x000043a0                memcpy
+ .text          0x00004530       0xd4 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-memset.o)
+                0x00004530                memset
+ .text          0x00004604       0x60 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-strlen.o)
+                0x00004604                strlen
+ .text          0x00004664       0x78 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-strncpy.o)
+                0x00004664                strncpy
+ *(.rodata*)
+ .rodata.str1.1
+                0x000046dc       0x27 main.o
+ .rodata.str1.1
+                0x00004703       0x4b ../../../lm3s6965/inc/../util/uart_put.o
+ .rodata.str1.1
+                0x0000474e       0x30 ../Common/Minimal/BlockQ.o
+ .rodata.str1.1
+                0x0000477e       0x1f ../Common/Minimal/blocktim.o
+ .rodata.str1.1
+                0x0000479d       0x18 ../Common/Minimal/death.o
+ .rodata.str1.1
+                0x000047b5        0x8 ../Common/Minimal/integer.o
+ .rodata.str1.1
+                0x000047bd       0x20 ../Common/Minimal/PollQ.o
+ .rodata.str1.1
+                0x000047dd       0x3e ../Common/Minimal/semtest.o
+ .rodata.str1.1
+                0x0000481b       0x37 ../Common/Minimal/GenQTest.o
+ .rodata.str1.1
+                0x00004852       0x2b ../Common/Minimal/QPeek.o
+ .rodata.str1.1
+                0x0000487d       0x1f ../Common/Minimal/recmutex.o
+ .rodata.str1.1
+                0x0000489c        0x5 ../../Source/tasks.o
+ *fill*         0x000048a1        0x3 00
+ .rodata.ulKernelPriority
+                0x000048a4        0x4 ../../Source/portable/GCC/ARM_CM3/port.o
+                0x000048a4                ulKernelPriority
+ .rodata.g_pulGPIOBaseAddrs
+                0x000048a8       0x78 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+ .rodata.g_pulEnRegs
+                0x00004920       0x14 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+ .rodata.g_pulDisRegs
+                0x00004934       0x14 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+ .rodata.g_pulPendRegs
+                0x00004948       0x14 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+ .rodata.g_pulUnpendRegs
+                0x0000495c       0x14 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+ .rodata.g_pulPriority
+                0x00004970       0x20 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+ .rodata.g_pulRegs
+                0x00004990       0x9c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+ .rodata.g_pulDCRegs
+                0x00004a2c       0x10 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+ .rodata.g_pulXtals
+                0x00004a3c       0x6c ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+ .rodata.g_pulDCGCRegs
+                0x00004aa8        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+ .rodata.g_ppulPeripheralMap
+                0x00004ab4      0x120 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+ .rodata.g_pulRCGCRegs
+                0x00004bd4        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+ .rodata.g_pulSCGCRegs
+                0x00004be0        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+ .rodata.g_pulSRCRRegs
+                0x00004bec        0xc ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+ .rodata.g_ppulUARTIntMap
+                0x00004bf8       0x40 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+                0x00004c38                _etext = .
+
+.glue_7         0x00004c38        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x00004c38        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x00004c38        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x00004c38        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.data           0x20000000      0x410 load address 0x00004c38
+                0x20000000                _data = .
+ *(vtable)
+ vtable         0x20000000      0x400 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+ *(.data*)
+ .data          0x20000400        0x0 main.o
+ .data          0x20000400        0x0 ../../../lm3s6965/inc/../util/uart_put.o
+ .data          0x20000400        0x0 ../../../vemu/vemu.o
+ .data.base_pointer
+                0x20000400        0x4 ../../../vemu/vemu.o
+                0x20000400                base_pointer
+ .data          0x20000404        0x0 ../Common/Minimal/BlockQ.o
+ .data          0x20000404        0x0 ../Common/Minimal/blocktim.o
+ .data          0x20000404        0x0 ../Common/Minimal/death.o
+ .data.usLastCreationCount.2029
+                0x20000404        0x2 ../Common/Minimal/death.o
+ .data          0x20000406        0x0 ../Common/Minimal/integer.o
+ .data          0x20000406        0x0 ../Common/Minimal/PollQ.o
+ .data          0x20000406        0x0 ../Common/Minimal/semtest.o
+ .data          0x20000406        0x0 ../Common/Minimal/GenQTest.o
+ .data          0x20000406        0x0 ../Common/Minimal/QPeek.o
+ .data          0x20000406        0x0 ../Common/Minimal/recmutex.o
+ .data          0x20000406        0x0 ../../Source/list.o
+ .data          0x20000406        0x0 ../../Source/queue.o
+ .data          0x20000406        0x0 ../../Source/tasks.o
+ *fill*         0x20000406        0x2 00
+ .data.xNextTaskUnblockTime
+                0x20000408        0x4 ../../Source/tasks.o
+ .data          0x2000040c        0x0 ../../Source/portable/GCC/ARM_CM3/port.o
+ .data.uxCriticalNesting
+                0x2000040c        0x4 ../../Source/portable/GCC/ARM_CM3/port.o
+ .data          0x20000410        0x0 ../../Source/portable/MemMang/heap_1.o
+ .data          0x20000410        0x0 startup.o
+ .data          0x20000410        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+ .data          0x20000410        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+ .data          0x20000410        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+ .data          0x20000410        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+ .data          0x20000410        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(cpu.o)
+ .data          0x20000410        0x0 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-memcpy.o)
+ .data          0x20000410        0x0 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-memset.o)
+ .data          0x20000410        0x0 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-strlen.o)
+ .data          0x20000410        0x0 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-strncpy.o)
+                0x20000410                _edata = .
+
+.bss            0x20000410     0x61e8 load address 0x00005048
+                0x20000410                _bss = .
+ *(.bss*)
+ .bss           0x20000410        0x0 main.o
+ .bss           0x20000410        0x0 ../../../lm3s6965/inc/../util/uart_put.o
+ .bss.uart_is_initialized
+                0x20000410        0x4 ../../../lm3s6965/inc/../util/uart_put.o
+                0x20000410                uart_is_initialized
+ .bss           0x20000414        0x0 ../../../vemu/vemu.o
+ .bss.hw_in_use
+                0x20000414        0x1 ../../../vemu/vemu.o
+                0x20000414                hw_in_use
+ .bss           0x20000415        0x0 ../Common/Minimal/BlockQ.o
+ *fill*         0x20000415        0x3 00
+ .bss.sBlockingProducerCount
+                0x20000418        0x8 ../Common/Minimal/BlockQ.o
+ .bss.sBlockingConsumerCount
+                0x20000420        0x8 ../Common/Minimal/BlockQ.o
+ .bss.sLastBlockingProducerCount.2150
+                0x20000428        0x8 ../Common/Minimal/BlockQ.o
+ .bss.sLastBlockingConsumerCount.2149
+                0x20000430        0x8 ../Common/Minimal/BlockQ.o
+ .bss           0x20000438        0x0 ../Common/Minimal/blocktim.o
+ .bss.xTestQueue
+                0x20000438        0x4 ../Common/Minimal/blocktim.o
+ .bss.xPrimaryCycles
+                0x2000043c        0x4 ../Common/Minimal/blocktim.o
+ .bss.xRunIndicator
+                0x20000440        0x4 ../Common/Minimal/blocktim.o
+ .bss.xSecondary
+                0x20000444        0x4 ../Common/Minimal/blocktim.o
+ .bss.xErrorOccurred
+                0x20000448        0x4 ../Common/Minimal/blocktim.o
+ .bss.xLastPrimaryCycleCount.1677
+                0x2000044c        0x4 ../Common/Minimal/blocktim.o
+ .bss.xSecondaryCycles
+                0x20000450        0x4 ../Common/Minimal/blocktim.o
+ .bss.xLastSecondaryCycleCount.1678
+                0x20000454        0x4 ../Common/Minimal/blocktim.o
+ .bss           0x20000458        0x0 ../Common/Minimal/death.o
+ .bss.usCreationCount
+                0x20000458        0x2 ../Common/Minimal/death.o
+ *fill*         0x2000045a        0x2 00
+ .bss.uxTasksRunningAtStart
+                0x2000045c        0x4 ../Common/Minimal/death.o
+ .bss.uxTasksRunningNow.2031
+                0x20000460        0x4 ../Common/Minimal/death.o
+ .bss           0x20000464        0x0 ../Common/Minimal/integer.o
+ .bss.xTaskCheck
+                0x20000464        0x4 ../Common/Minimal/integer.o
+ .bss           0x20000468        0x0 ../Common/Minimal/PollQ.o
+ .bss.xPolledQueue.2069
+                0x20000468        0x4 ../Common/Minimal/PollQ.o
+ .bss.xPollingProducerCount
+                0x2000046c        0x4 ../Common/Minimal/PollQ.o
+ .bss.xPollingConsumerCount
+                0x20000470        0x4 ../Common/Minimal/PollQ.o
+ .bss           0x20000474        0x0 ../Common/Minimal/semtest.o
+ .bss.sCheckVariables
+                0x20000474        0x8 ../Common/Minimal/semtest.o
+ .bss.sNextCheckVariable
+                0x2000047c        0x2 ../Common/Minimal/semtest.o
+ *fill*         0x2000047e        0x2 00
+ .bss.sLastCheckVariables.2156
+                0x20000480        0x8 ../Common/Minimal/semtest.o
+ .bss           0x20000488        0x0 ../Common/Minimal/GenQTest.o
+ .bss.ulLoopCounter2
+                0x20000488        0x4 ../Common/Minimal/GenQTest.o
+ .bss.xHighPriorityMutexTask
+                0x2000048c        0x4 ../Common/Minimal/GenQTest.o
+ .bss.ulLastLoopCounter2.2248
+                0x20000490        0x4 ../Common/Minimal/GenQTest.o
+ .bss.ulLastLoopCounter.2247
+                0x20000494        0x4 ../Common/Minimal/GenQTest.o
+ .bss.xMediumPriorityMutexTask
+                0x20000498        0x4 ../Common/Minimal/GenQTest.o
+ .bss.xErrorDetected
+                0x2000049c        0x4 ../Common/Minimal/GenQTest.o
+ .bss.ulLoopCounter
+                0x200004a0        0x4 ../Common/Minimal/GenQTest.o
+ .bss.ulGuardedVariable
+                0x200004a4        0x4 ../Common/Minimal/GenQTest.o
+ .bss           0x200004a8        0x0 ../Common/Minimal/QPeek.o
+ .bss.ulLastLoopCounter.2189
+                0x200004a8        0x4 ../Common/Minimal/QPeek.o
+ .bss.xErrorDetected
+                0x200004ac        0x4 ../Common/Minimal/QPeek.o
+ .bss.ulLoopCounter
+                0x200004b0        0x4 ../Common/Minimal/QPeek.o
+ .bss           0x200004b4        0x0 ../Common/Minimal/recmutex.o
+ .bss.xBlockingTaskHandle
+                0x200004b4        0x4 ../Common/Minimal/recmutex.o
+ .bss.uxLastControllingCycles.1635
+                0x200004b8        0x4 ../Common/Minimal/recmutex.o
+ .bss.xBlockingIsSuspended
+                0x200004bc        0x4 ../Common/Minimal/recmutex.o
+ .bss.xControllingTaskHandle
+                0x200004c0        0x4 ../Common/Minimal/recmutex.o
+ .bss.uxPollingCycles
+                0x200004c4        0x4 ../Common/Minimal/recmutex.o
+ .bss.uxBlockingCycles
+                0x200004c8        0x4 ../Common/Minimal/recmutex.o
+ .bss.xErrorOccurred
+                0x200004cc        0x4 ../Common/Minimal/recmutex.o
+ .bss.uxLastPollingCycles.1637
+                0x200004d0        0x4 ../Common/Minimal/recmutex.o
+ .bss.uxLastBlockingCycles.1636
+                0x200004d4        0x4 ../Common/Minimal/recmutex.o
+ .bss.uxControllingCycles
+                0x200004d8        0x4 ../Common/Minimal/recmutex.o
+ .bss.xMutex    0x200004dc        0x4 ../Common/Minimal/recmutex.o
+ .bss.xControllingIsSuspended
+                0x200004e0        0x4 ../Common/Minimal/recmutex.o
+ .bss           0x200004e4        0x0 ../../Source/list.o
+ .bss           0x200004e4        0x0 ../../Source/queue.o
+ .bss           0x200004e4        0x0 ../../Source/tasks.o
+ .bss.uxMissedTicks
+                0x200004e4        0x4 ../../Source/tasks.o
+ .bss.uxTopUsedPriority
+                0x200004e8        0x4 ../../Source/tasks.o
+ .bss.pxDelayedTaskList
+                0x200004ec        0x4 ../../Source/tasks.o
+ .bss.xSchedulerRunning
+                0x200004f0        0x4 ../../Source/tasks.o
+ .bss.uxTasksDeleted
+                0x200004f4        0x4 ../../Source/tasks.o
+ .bss.xNumOfOverflows
+                0x200004f8        0x4 ../../Source/tasks.o
+ .bss.pxOverflowDelayedTaskList
+                0x200004fc        0x4 ../../Source/tasks.o
+ .bss.pxReadyTasksLists
+                0x20000500       0x64 ../../Source/tasks.o
+ .bss.xTasksWaitingTermination
+                0x20000564       0x14 ../../Source/tasks.o
+ .bss.pxCurrentTCB
+                0x20000578        0x4 ../../Source/tasks.o
+                0x20000578                pxCurrentTCB
+ .bss.xPendingReadyList
+                0x2000057c       0x14 ../../Source/tasks.o
+ .bss.xDelayedTaskList1
+                0x20000590       0x14 ../../Source/tasks.o
+ .bss.xTickCount
+                0x200005a4        0x4 ../../Source/tasks.o
+ .bss.uxSchedulerSuspended
+                0x200005a8        0x4 ../../Source/tasks.o
+ .bss.xDelayedTaskList2
+                0x200005ac       0x14 ../../Source/tasks.o
+ .bss.uxTaskNumber
+                0x200005c0        0x4 ../../Source/tasks.o
+ .bss.uxCurrentNumberOfTasks
+                0x200005c4        0x4 ../../Source/tasks.o
+ .bss.xMissedYield
+                0x200005c8        0x4 ../../Source/tasks.o
+ .bss.xSuspendedTaskList
+                0x200005cc       0x14 ../../Source/tasks.o
+ .bss.uxTopReadyPriority
+                0x200005e0        0x4 ../../Source/tasks.o
+ .bss           0x200005e4        0x0 ../../Source/portable/GCC/ARM_CM3/port.o
+ .bss           0x200005e4        0x0 ../../Source/portable/MemMang/heap_1.o
+ .bss.xNextFreeByte
+                0x200005e4        0x4 ../../Source/portable/MemMang/heap_1.o
+ .bss.xHeap     0x200005e8     0x5dc0 ../../Source/portable/MemMang/heap_1.o
+ .bss           0x200063a8        0x0 startup.o
+ .bss.pulStack  0x200063a8      0x1e0 startup.o
+ .bss           0x20006588        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+ .bss           0x20006588        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+ .bss           0x20006588        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+ .bss           0x20006588        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+ .bss           0x20006588        0x0 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(cpu.o)
+ .bss           0x20006588        0x0 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-memcpy.o)
+ .bss           0x20006588        0x0 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-memset.o)
+ .bss           0x20006588        0x0 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-strlen.o)
+ .bss           0x20006588        0x0 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-strncpy.o)
+ *(COMMON)
+ COMMON         0x20006588        0x4 ../Common/Minimal/death.o
+                0x20006588                xCreatedTask
+ COMMON         0x2000658c        0xc ../Common/Minimal/QPeek.o
+                0x2000658c                xHighPriorityTask
+                0x20006590                xMediumPriorityTask
+                0x20006594                xHighestPriorityTask
+ COMMON         0x20006598       0x50 ../../Source/queue.o
+                0x20006598                xQueueRegistry
+ COMMON         0x200065e8       0x10 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+                0x200065e8                bNewPLL
+                0x200065ec                ulSysDiv
+                0x200065f0                ulOsc
+                0x200065f4                ulOscSelect
+                0x200065f8                _ebss = .
+                0x200065f8                . = ALIGN (0x4)
+                0x200065f8                __bss_end__ = .
+                0x200065f8                __bss_end__ = .
+                0x200065f8                _end = .
+                0x200065f8                PROVIDE (end, .)
+OUTPUT(RTOSDemo.axf elf32-littlearm)
+
+.comment        0x00000000      0x3dd
+ .comment       0x00000000       0x2b main.o
+ .comment       0x0000002b       0x2b ../../../lm3s6965/inc/../util/uart_put.o
+ .comment       0x00000056       0x2b ../../../vemu/vemu.o
+ .comment       0x00000081       0x2b ../Common/Minimal/BlockQ.o
+ .comment       0x000000ac       0x2b ../Common/Minimal/blocktim.o
+ .comment       0x000000d7       0x2b ../Common/Minimal/death.o
+ .comment       0x00000102       0x2b ../Common/Minimal/integer.o
+ .comment       0x0000012d       0x2b ../Common/Minimal/PollQ.o
+ .comment       0x00000158       0x2b ../Common/Minimal/semtest.o
+ .comment       0x00000183       0x2b ../Common/Minimal/GenQTest.o
+ .comment       0x000001ae       0x2b ../Common/Minimal/QPeek.o
+ .comment       0x000001d9       0x2b ../Common/Minimal/recmutex.o
+ .comment       0x00000204       0x2b ../../Source/list.o
+ .comment       0x0000022f       0x2b ../../Source/queue.o
+ .comment       0x0000025a       0x2b ../../Source/tasks.o
+ .comment       0x00000285       0x2b ../../Source/portable/GCC/ARM_CM3/port.o
+ .comment       0x000002b0       0x2b ../../Source/portable/MemMang/heap_1.o
+ .comment       0x000002db       0x2b startup.o
+ .comment       0x00000306       0x2b ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+ .comment       0x00000331       0x2b ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+ .comment       0x0000035c       0x2b ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+ .comment       0x00000387       0x2b ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+ .comment       0x000003b2       0x2b ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(cpu.o)
+
+.ARM.attributes
+                0x00000000       0x31
+ .ARM.attributes
+                0x00000000       0x31 main.o
+ .ARM.attributes
+                0x00000031       0x31 ../../../lm3s6965/inc/../util/uart_put.o
+ .ARM.attributes
+                0x00000062       0x31 ../../../vemu/vemu.o
+ .ARM.attributes
+                0x00000093       0x31 ../Common/Minimal/BlockQ.o
+ .ARM.attributes
+                0x000000c4       0x31 ../Common/Minimal/blocktim.o
+ .ARM.attributes
+                0x000000f5       0x31 ../Common/Minimal/death.o
+ .ARM.attributes
+                0x00000126       0x31 ../Common/Minimal/integer.o
+ .ARM.attributes
+                0x00000157       0x31 ../Common/Minimal/PollQ.o
+ .ARM.attributes
+                0x00000188       0x31 ../Common/Minimal/semtest.o
+ .ARM.attributes
+                0x000001b9       0x31 ../Common/Minimal/GenQTest.o
+ .ARM.attributes
+                0x000001ea       0x31 ../Common/Minimal/QPeek.o
+ .ARM.attributes
+                0x0000021b       0x31 ../Common/Minimal/recmutex.o
+ .ARM.attributes
+                0x0000024c       0x31 ../../Source/list.o
+ .ARM.attributes
+                0x0000027d       0x31 ../../Source/queue.o
+ .ARM.attributes
+                0x000002ae       0x31 ../../Source/tasks.o
+ .ARM.attributes
+                0x000002df       0x31 ../../Source/portable/GCC/ARM_CM3/port.o
+ .ARM.attributes
+                0x00000310       0x31 ../../Source/portable/MemMang/heap_1.o
+ .ARM.attributes
+                0x00000341       0x31 startup.o
+ .ARM.attributes
+                0x00000372       0x31 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(gpio.o)
+ .ARM.attributes
+                0x000003a3       0x31 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(interrupt.o)
+ .ARM.attributes
+                0x000003d4       0x31 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(sysctl.o)
+ .ARM.attributes
+                0x00000405       0x31 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(uart.o)
+ .ARM.attributes
+                0x00000436       0x31 ../../../lm3s6965/inc/../driverlib/gcc-cm3/libdriver-cm3.a(cpu.o)
+ .ARM.attributes
+                0x00000467       0x29 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-memcpy.o)
+ .ARM.attributes
+                0x00000490       0x29 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-memset.o)
+ .ARM.attributes
+                0x000004b9       0x29 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-strlen.o)
+ .ARM.attributes
+                0x000004e2       0x29 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-strncpy.o)
+
+.debug_frame    0x00000000       0xa4
+ .debug_frame   0x00000000       0x34 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-memcpy.o)
+ .debug_frame   0x00000034       0x28 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-memset.o)
+ .debug_frame   0x0000005c       0x20 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-strlen.o)
+ .debug_frame   0x0000007c       0x28 /opt/arm-gcc/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2/libc.a(lib_a-strncpy.o)

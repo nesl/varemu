@@ -3,3 +3,4 @@ faulty_mul
 qemu-1.2*
 zImage*
 qemu-linaro/
+/*.o

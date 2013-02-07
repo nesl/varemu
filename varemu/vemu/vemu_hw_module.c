@@ -69,6 +69,7 @@ extern uint64_t vemu_errors_enabled;
 static uint64_t vemu_mod_read(void *opaque, hwaddr offset, unsigned size)
 {
 	uint64_t rv;
+	//vemu_debug("offset: %x, size: %x, val: \n", (int)offset, (int)size);
 	assert(offset <= VEMU_STATE_N_VARS * 8);
 	memcpy(&rv, &(last_state.array8[offset]), size);
 	return rv;	
