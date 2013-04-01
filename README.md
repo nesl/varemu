@@ -14,7 +14,7 @@
 wget https://github.com/nesl/varemu/archive/master.zip
 unzip master.zip
 cd varemu-master/
-tar xjf qemu-linaro-13-02-04.tar.bz2
+tar xjf qemu-linaro-13-03.28.tar.bz2
 cp -r varemu/* qemu-linaro/
 cd qemu-linaro
 ./configure --enable-sdl --disable-kvm --enable-debug --enable-debug-tcg --target-list=arm-softmmu
