@@ -10,7 +10,7 @@
 #define _vemu_cycles_h
 #ifdef 	VEMU
 
-#include "vemu.h"
+#include "vemu/vemu.h"
 
 #define 	MAX_INSTR_CLASSES	8
 

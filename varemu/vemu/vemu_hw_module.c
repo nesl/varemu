@@ -74,7 +74,7 @@ static uint64_t vemu_mod_read(void *opaque, hwaddr offset, unsigned size)
 	memcpy(&rv, &(last_state.array8[offset]), size);
 	return rv;	
 }
-/*
+
 static void print_state(vemu_state *state) 
 {
 	int i;
@@ -83,7 +83,7 @@ static void print_state(vemu_state *state)
 	}
 
 }
-*/
+
 
 static void vemu_mod_write(void *opaque, hwaddr offset,
                                  uint64_t val, unsigned size)
@@ -98,6 +98,7 @@ static void vemu_mod_write(void *opaque, hwaddr offset,
 			vemu_errors_enabled = val;
 		} break;
 		case READ_CMD : {
+			vemu_debug("READ_CMD\n");
 			int i;
 			for (i = 0; i < MAX_INSTR_CLASSES; i++) {
 				last_state.variables.act_time[i] = vemu_get_act_time(i);
@@ -110,7 +111,7 @@ static void vemu_mod_write(void *opaque, hwaddr offset,
 			last_state.variables.slp_time = vemu_get_slp_time();
 			last_state.variables.slp_energy =	vemu_get_slp_energy();
 			last_state.variables.error_status = vemu_errors_enabled;
-			//print_state(&last_state);
+			print_state(&last_state);
 		} break;		
         case EXIT_CMD : {
 			printf("Killing QEMU. I hope you unmounted all network filesystems...\n");

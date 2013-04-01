@@ -224,9 +224,12 @@ void HELPER(wfi)(CPUARMState *env)
 {
 	#ifdef VEMU
 	vemu_sleep_start();
-	#endif	
+	#endif		
+	
+    CPUState *cs = CPU(arm_env_get_cpu(env));
+
     env->exception_index = EXCP_HLT;
-    env->halted = 1;
+    cs->halted = 1;
     cpu_loop_exit(env);
 }
 
@@ -236,6 +239,7 @@ void HELPER(vemu_info)(CPUARMState *env, uint64_t val)
     TranslationBlock * tb;
     tb = (TranslationBlock *)val;
     vemu_increment_cycles(&(tb->vemu));
+    
 }
 
 uint32_t HELPER(vemu_error_replace)(CPUARMState *env, uint64_t val)
@@ -351,36 +355,6 @@ uint64_t HELPER(get_cp_reg64)(CPUARMState *env, void *rip)
 /* ??? Flag setting arithmetic is awkward because we need to do comparisons.
    The only way to do that in TCG is a conditional branch, which clobbers
    all our temporaries.  For now implement these as helper functions.  */
-
-uint32_t HELPER(adc_cc)(CPUARMState *env, uint32_t a, uint32_t b)
-{
-    uint32_t result;
-    if (!env->CF) {
-        result = a + b;
-        env->CF = result < a;
-    } else {
-        result = a + b + 1;
-        env->CF = result <= a;
-    }
-    env->VF = (a ^ b ^ -1) & (a ^ result);
-    env->NF = env->ZF = result;
-    return result;
-}
-
-uint32_t HELPER(sbc_cc)(CPUARMState *env, uint32_t a, uint32_t b)
-{
-    uint32_t result;
-    if (!env->CF) {
-        result = a - b - 1;
-        env->CF = a > b;
-    } else {
-        result = a - b;
-        env->CF = a >= b;
-    }
-    env->VF = (a ^ b) & (a ^ result);
-    env->NF = env->ZF = result;
-    return result;
-}
 
 /* Similarly for variable shift instructions.  */
 

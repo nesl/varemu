@@ -15,11 +15,9 @@
 #include "vemu.h"
 #include "exec/exec-all.h"
 
-
 uint32_t vemu_error_pre(CPUArchState * env, TranslationBlock* tb);
 uint32_t vemu_error_post(CPUArchState * env, TranslationBlock* tb);
 uint32_t vemu_error_replace(CPUArchState * env, TranslationBlock* tb);
-
 
 #endif // VEMU
 #endif // _vemu_errors_h

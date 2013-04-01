@@ -7,10 +7,12 @@
 
 #ifdef	VEMU
 
+
 #include "vemu-errors.h"
 #include "vemu.h"
 #include "tcg-op.h"
-
+#include "cpu.h"
+#include "exec/exec-all.h"
 
 uint64_t vemu_errors_enabled = 0;
 
