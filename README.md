@@ -82,7 +82,7 @@ qemu-1.2.0/arm-softmmu/qemu-system-arm -M versatilepb -m 256M -kernel linux/linu
 ## VarEMU Power Monitor
 
 
-* Start QEMU with a monitor socket by adding <pre> -qmp unix:qmp-sock_01,server</pre> to the command line
+* Start QEMU with a monitor socket by adding <code> -qmp unix:qmp-sock_01,server</code> to the command line
 * Start the VarEMU Python Monitor
 
 <pre>
