@@ -8683,13 +8683,16 @@ static int disas_thumb2_insn(CPUARMState *env, DisasContext *s, uint16_t insn_hw
                 }
 
                 offset += s->pc;
+               
+                
                 if (insn & (1 << 12)) {
                     /* b/bl */
                     gen_jmp(s, offset);
                 } else {
                     /* blx */
                     offset &= ~(uint32_t)2;
-                    /* thumb2 bx, no need to check */
+                    /* thumb2 bx, no need to check */                    
+                    
                     gen_bx_im(s, offset);
                 }
             } else if (((insn >> 23) & 7) == 7) {

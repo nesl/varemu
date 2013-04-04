@@ -22,11 +22,11 @@
 
 
 
-#define CYCLES_DATA_OP_ARITH    3
-#define CYCLES_DATA_OP_LOGIC    4
-#define CYCLES_BRANCH 		 	3
-#define CYCLES_DEFAULT		 	1
-#define CYCLES_NONE 			0
+#define CYCLES_DATA_OP_ARITH    1.0
+#define CYCLES_DATA_OP_LOGIC    1.0
+#define CYCLES_BRANCH 		 	2
+#define CYCLES_DEFAULT		 	1.0
+#define CYCLES_NONE 			0.0
 
 #define CYCLES_ADC		CYCLES_DATA_OP_ARITH
 #define CYCLES_ADCS		CYCLES_DATA_OP_ARITH
@@ -4564,9 +4564,10 @@ void vemu_target_decode_instr(uint32_t instr, int thumb, vemu_tb_info * info) {
     
 	//vemu_debug("Instruction %x (%s opcode %x): %s (%d cycles)\n", instr, thumb ? "thumb" : "arm" , opcode,  instr_info[opcode].name, instr_info[opcode].cycles);
     
+    info->instr_info.cycles = 1.6;
          	
 	if ( instr_info[opcode].cycles == 0) {
-		vemu_debug("No cycle info for instruction %x (%s opcode %x): %s (%d cycles)\n", instr, thumb ? "thumb" : "arm" , opcode,  instr_info[opcode].name, instr_info[opcode].cycles);
+		vemu_debug("No cycle info for instruction %x (%s opcode %x): %s (%f cycles)\n", instr, thumb ? "thumb" : "arm" , opcode,  instr_info[opcode].name, instr_info[opcode].cycles);
 	}
 
 }

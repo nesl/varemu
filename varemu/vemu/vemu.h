@@ -34,7 +34,7 @@ typedef struct
 	uint32_t opcode;
 	const char * name;
 	uint8_t class;	
-	uint8_t cycles;
+	double cycles;
 	bool errors;
 } vemu_instr_info;
 

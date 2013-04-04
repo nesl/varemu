@@ -17,10 +17,10 @@
 
 #define period_ns(F)	1e12/F
 
-uint64_t vemu_frequency = 100e9;
+uint64_t vemu_frequency = 8e9;
 
-uint64_t cycle_count[MAX_INSTR_CLASSES];
-uint64_t active_time[MAX_INSTR_CLASSES];
+double cycle_count[MAX_INSTR_CLASSES];
+double active_time[MAX_INSTR_CLASSES];
 int64_t total_sleep_time;	// Can be negative if actual runtime is faster than virtual runtime
 
 uint64_t last_active_time_vm;
@@ -65,11 +65,11 @@ uint64_t vemu_get_act_time(uint8_t class)
 uint64_t vemu_get_act_time_all_classes(void)
 {
 	int i;
-	uint64_t sum = 0;
+	double sum = 0;
 	for (i = 0; i < MAX_INSTR_CLASSES; i++) {
 		sum += active_time[i];
 	}
-	return sum;
+	return (uint64_t)sum;
 }
 
 uint64_t vemu_get_slp_time(void) 
@@ -92,10 +92,10 @@ void vemu_increment_cycles(vemu_tb_info * tb_info)
 	vemu_instr_info * instr_info = &(tb_info->instr_info);
 	
     int class = instr_info->class;
-    int cycles = instr_info->cycles;
+    double cycles = instr_info->cycles;
 	assert(class < MAX_INSTR_CLASSES);
 	
-	//vemu_debug("Instruction %x (opcode %x): %s (%d cycles)\n", tb_info->instr_word, instr_info->opcode,  instr_info->name, instr_info->cycles);
+	//vemu_debug("Instruction %x (opcode %x): %s (%f cycles)\n", tb_info->instr_word, instr_info->opcode,  instr_info->name, instr_info->cycles);
 		
 	if(cycles == 0) {
 		vemu_debug("Warning: 0 cycles for opcode %x\n", instr_info->opcode);
