@@ -1,4 +1,5 @@
-common-obj-y += vemu_user_io.o vemu_arm.o vemu_cycles.o vemu_power_tvlsi.o vemu_energy.o 
+common-obj-y += vemu_user_io.o vemu_arm.o vemu_cycles.o vemu_energy.o vemu_power_45nm.o 
+#vemu_power_tvlsi.o 
 #hw-obj-y += 
 #obj-y += 
 obj-y += vemu_hw_module.o vemu_errors.o

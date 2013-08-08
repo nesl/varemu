@@ -22,16 +22,19 @@ uint64_t slp_time_ckpt;
 double act_energy[MAX_INSTR_CLASSES];
 double slp_energy;
 
+extern uint64_t vemu_frequency;
+
+
 uint64_t vemu_get_act_energy(uint8_t class)
 {
 	assert(class < MAX_INSTR_CLASSES);
 	uint64_t curr_time = vemu_get_act_time(class);
 	uint64_t interval = curr_time - act_time_ckpt[class]; // pS
-	double energy =  interval * vemu_pm_act_power(class, 0);
-	//vemu_debug("ACT Interval: %llu, Power: %f, Energy: %f\n", interval, vemu_pm_act_power(class, 0), energy);
+	double energy =  interval * vemu_pm_act_power(class, vemu_frequency);
+	//vemu_debug("ACT Interval: %llu, Power: %f, Energy: %f\n", interval, vemu_pm_act_power(class, vemu_frequency), energy);
 	act_time_ckpt[class] = curr_time;
 	act_energy[class] += energy;
-	return (uint64_t)act_energy[class] / 1000; // uJ
+	return (uint64_t)(act_energy[class]); 
 }
 
 uint64_t vemu_get_act_energy_all_classes(void)
@@ -53,11 +56,11 @@ uint64_t vemu_get_slp_energy(void)
 	if (interval < 0) {
 		// If interval is negative, host is not keeping up with expected HW frequency
 		// Don't accumulate sleep energy now, wait for host to catch up
-		return (uint64_t)slp_energy / 1000; // // uJ
+		return (uint64_t)slp_energy; 
 	}
 	slp_time_ckpt = curr_slp_time;
 	slp_energy += energy;
-	return (uint64_t)slp_energy / 1000; // // uJ
+	return (uint64_t)slp_energy; 
 }
 
 void vemu_energy_init(void)
@@ -79,5 +82,8 @@ void vemu_energy_change_parameter(uint8_t cc, uint8_t pp, double vv) {
 	vemu_pm_change_parameter(cc, pp, vv);
 	vemu_pm_print_parameters();			
 }
+
+
+
 
 #endif

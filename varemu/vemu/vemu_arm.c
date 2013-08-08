@@ -434,7 +434,7 @@ vemu_instr_info vemu_arm_instr[] = {
 	{0x006,"AND rri",CLASS_DEFAULT,CYCLES_AND,ERRORS_DEFAULT},
 	{0x007,"AND rrr",CLASS_DEFAULT,CYCLES_AND,ERRORS_DEFAULT},
 	{0x008,"AND lli",CLASS_DEFAULT,CYCLES_AND,ERRORS_DEFAULT},
-	{0x009,"MUL",CLASS_DEFAULT,CYCLES_MUL,VEMU_ERRORS_REPLACE},
+	{0x009,"MUL",CLASS_DEFAULT,CYCLES_MUL,ERRORS_DEFAULT},
 	{0x00A,"AND lri",CLASS_DEFAULT,CYCLES_AND,ERRORS_DEFAULT},
 	{0x00B,"STRH ptrm",CLASS_DEFAULT,CYCLES_STRH,ERRORS_DEFAULT},
 	{0x00C,"AND ari",CLASS_DEFAULT,CYCLES_AND,ERRORS_DEFAULT},
@@ -4564,7 +4564,7 @@ void vemu_target_decode_instr(uint32_t instr, int thumb, vemu_tb_info * info) {
     
 	//vemu_debug("Instruction %x (%s opcode %x): %s (%d cycles)\n", instr, thumb ? "thumb" : "arm" , opcode,  instr_info[opcode].name, instr_info[opcode].cycles);
     
-    info->instr_info.cycles = 1.6;
+    //info->instr_info.cycles = 1.0;
          	
 	if ( instr_info[opcode].cycles == 0) {
 		vemu_debug("No cycle info for instruction %x (%s opcode %x): %s (%f cycles)\n", instr, thumb ? "thumb" : "arm" , opcode,  instr_info[opcode].name, instr_info[opcode].cycles);

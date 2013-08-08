@@ -17,7 +17,9 @@
 
 #define period_ns(F)	1e12/F
 
+//uint64_t vemu_frequency = 500e9;
 uint64_t vemu_frequency = 8e9;
+
 
 double cycle_count[MAX_INSTR_CLASSES];
 double active_time[MAX_INSTR_CLASSES];

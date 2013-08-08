@@ -35,13 +35,13 @@ void vemu_prepare_display(vemu_regs_display * display, vemu_regs_prefix *prefix,
 	
 	int decimal_power[VEMU_STATE_N_VARS] =
 		{ -3, -3, -3, -3, -3, -3, -3, -3,
-		  -2, -2, -2, -2, -2, -2, -2, -2,
+		  -3, -3, -3, -3, -3, -3, -3, -3,
 		  0, 0, 0, 0, 0, 0, 0, 0,
 		  -3,
-		  -2,
+		  -3,
 		  0,
 		  -3,
-		  -2,
+		  -3,
 		  0
 		};
 	int i;
