@@ -11,7 +11,7 @@
 #ifdef 	VEMU
 
 double vemu_pm_slp_power(void);
-double vemu_pm_act_power(uint8_t class, uint64_t frequency);
+double vemu_pm_act_power(uint8_t class);
 void vemu_pm_print_parameters(void); 
 void vemu_pm_change_parameter(uint8_t class, uint8_t parameter, double value);
 double vemu_pm_get_parameter(uint8_t class, uint8_t parameter);

@@ -4,6 +4,8 @@
 //
 //  Created by Lucas Wanner on 11/16/12.
 //
+//  Moved frequency to PM on 12/8/14
+//
 //
 
 #include <stdio.h>
@@ -11,15 +13,11 @@
 #include "vemu.h"
 #include "qemu-common.h"
 #include "vemu-cycles.h"
-
+#include "vemu-energy.h"
 
 #ifdef 	VEMU
 
-#define period_ns(F)	1e12/F
-
-//uint64_t vemu_frequency = 500e9;
-uint64_t vemu_frequency = 8e9;
-
+#define period_ns	(1e9/(uint64_t)vemu_pm_get_parameter(0,0))
 
 double cycle_count[MAX_INSTR_CLASSES];
 double active_time[MAX_INSTR_CLASSES];
@@ -30,17 +28,6 @@ uint64_t last_active_time_cycles;
 uint64_t last_sleep_time;
 
 bool entered_sleep_mode;
-
-uint64_t vemu_get_frequency(void)
-{
-	return vemu_frequency;
-}
-
-void vamu_set_frequency(uint64_t f)
-{
-	vemu_frequency = f;
-}
-
 
 uint64_t vemu_get_cycles(uint8_t class) 
 {
@@ -103,7 +90,7 @@ void vemu_increment_cycles(vemu_tb_info * tb_info)
 		vemu_debug("Warning: 0 cycles for opcode %x\n", instr_info->opcode);
 	}
 	cycle_count[class] += cycles;
-	active_time[class] += cycles * period_ns(vemu_frequency);
+	active_time[class] += cycles * period_ns;
 }
 
 
@@ -138,10 +125,6 @@ void vemu_sleep_start(void)
 	last_sleep_time = time + delta;
 	entered_sleep_mode = true;	
 }
-
-
-
-
 
 void vemu_init_cycles(void) 
 {

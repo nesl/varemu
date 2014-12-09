@@ -19,21 +19,13 @@
 #define	READ_NOT_PENDING	0xFFFFF 
 #define VEMU_MOD_SIZE		0x1000
 
-#define ACT_TIME			0x000
-#define ACT_EN				(ACT_TIME + 8*MAX_INSTR_CLASSES)
-#define CYCLES				(ACT_EN + 8*MAX_INSTR_CLASSES)
-#define TOTAL_ACT_TIME		(CYCLES + 8*MAX_INSTR_CLASSES)
-#define TOTAL_ACT_EN		(TOTAL_ACT_TIME + 8)
-#define TOTAL_CYCLES		(TOTAL_ACT_EN + 8)
-#define SLP_TIME			(TOTAL_CYCLES + 8)
-#define SLP_ENERGY			(SLP_TIME + 8)
-#define ERRORS_EN			(SLP_ENERGY + 8)
 
-#define READ_CMD       		(0xD00)
-#define EXIT_CMD           	(0xF00)
+#define SET_FAULTS				(0x000)
+#define SET_FREQUENCY			(SET_FAULTS+8)	
+#define SET_VOLTAGE				(SET_FREQUENCY+8)
+#define READ_CMD       			(0xD00)
+#define EXIT_CMD           		(0xF00)
 
-#define	MAX_INSTR_CLASSES	8
-#define VEMU_STATE_N_VARS	(MAX_INSTR_CLASSES*3+6)
 
 
 
@@ -52,8 +44,13 @@ typedef struct {
 	uint64_t total_cycles;  
 	uint64_t slp_time;
 	uint64_t slp_energy;  
-	uint64_t error_status;
+	uint64_t fault_status;
+	uint64_t frequency;
+	uint64_t voltage;
 } vemu_regs;
+
+#define VEMU_STATE_N_VARS	(MAX_INSTR_CLASSES*3+8)
+
 
 typedef union {
 	vemu_regs variables;
@@ -75,33 +72,19 @@ static uint64_t vemu_mod_read(void *opaque, hwaddr offset, unsigned size)
 	return rv;	
 }
 
-/*
-static void print_state(vemu_state *state) 
-{
-	int i;
-	printf("c: %llu\t", state->variables.total_cycles);
-	printf("t: %f\n", state->variables.total_act_time/1.0e9);
-	
-
-	for (i = 0; i < VEMU_STATE_N_VARS; i++) {
-		printf("%02d %15llu\n", i, (long long unsigned)state->array64[i]);
-	}
-
-}
-*/
-
 static void vemu_mod_write(void *opaque, hwaddr offset,
                                  uint64_t val, unsigned size)
 {
 	switch (offset) {
-		case ERRORS_EN : {   
-			/*  
-			if(val != vemu_errors_enabled) {
-				vemu_debug("vemu_errors_enabled = %llu\n", (unsigned long long)val);
-			}
-			*/
+		case SET_FAULTS : {   
 			vemu_errors_enabled = val;
 		} break;
+		case SET_FREQUENCY : {
+			vemu_pm_change_parameter(0,0,(double)val);
+		}  break;
+		case SET_VOLTAGE : {
+			vemu_pm_change_parameter(0,1,((double)val)/1000.0);
+		}  break;		
 		case READ_CMD : {
 			int i;
 			for (i = 0; i < MAX_INSTR_CLASSES; i++) {
@@ -114,11 +97,12 @@ static void vemu_mod_write(void *opaque, hwaddr offset,
 			last_state.variables.total_cycles = vemu_get_cycles_all_classes();
 			last_state.variables.slp_time = vemu_get_slp_time();
 			last_state.variables.slp_energy =	vemu_get_slp_energy();
-			last_state.variables.error_status = vemu_errors_enabled;
-			//print_state(&last_state);
+			last_state.variables.fault_status = vemu_errors_enabled;
+			last_state.variables.frequency = vemu_pm_get_parameter(0,0);
+			last_state.variables.voltage = vemu_pm_get_parameter(0,1)*1000;
 		} break;		
         case EXIT_CMD : {
-			printf("Killing QEMU. I hope you unmounted all network filesystems...\n");
+			printf("Killing QEMU.\n");
             exit(-1);
         } break;		
 	}

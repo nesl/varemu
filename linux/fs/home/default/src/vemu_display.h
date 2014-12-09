@@ -42,6 +42,8 @@ void vemu_prepare_display(vemu_regs_display * display, vemu_regs_prefix *prefix,
 		  0,
 		  -3,
 		  -3,
+		  0,
+		  0,
 		  0
 		};
 	int i;

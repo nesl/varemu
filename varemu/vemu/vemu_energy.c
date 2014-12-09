@@ -22,15 +22,12 @@ uint64_t slp_time_ckpt;
 double act_energy[MAX_INSTR_CLASSES];
 double slp_energy;
 
-extern uint64_t vemu_frequency;
-
-
 uint64_t vemu_get_act_energy(uint8_t class)
 {
 	assert(class < MAX_INSTR_CLASSES);
 	uint64_t curr_time = vemu_get_act_time(class);
 	uint64_t interval = curr_time - act_time_ckpt[class]; // pS
-	double energy =  interval * vemu_pm_act_power(class, vemu_frequency);
+	double energy =  interval * vemu_pm_act_power(class);
 	//vemu_debug("ACT Interval: %llu, Power: %f, Energy: %f\n", interval, vemu_pm_act_power(class, vemu_frequency), energy);
 	act_time_ckpt[class] = curr_time;
 	act_energy[class] += energy;

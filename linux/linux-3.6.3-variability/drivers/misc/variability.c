@@ -56,7 +56,7 @@ void vemu_reg_write(int offset, uint64_t val) {
 void vemu_add_delta(vemu_state * target, vemu_state * new, vemu_state * old)
 {
 	int i;
-	for (i = 0; i < VEMU_STATE_N_VARS - 1; i++) // Don't mess with error_state
+	for (i = 0; i < VEMU_STATE_N_VARS - 3; i++) // Don't mess with error_state, F, and V
 	{
 		target->array64[i] += new->array64[i] - old->array64[i];
 	}
@@ -66,7 +66,7 @@ void vemu_process_in()
 {
 	vemu_read_state(&vemu_state_pin);
 	vemu_add_delta(&vemu_state_sys, &vemu_state_pin, &vemu_state_pout);
-    vemu_reg_write(ERRORS_EN, current->vemu.variables.error_status);	
+    vemu_reg_write(SET_FAULTS, current->vemu.variables.fault_status);	
 }
 EXPORT_SYMBOL(vemu_process_in);
 
@@ -74,7 +74,10 @@ void vemu_process_out()
 {
 	vemu_read_state(&vemu_state_pout);
 	vemu_add_delta(&(current->vemu), &vemu_state_pout, &vemu_state_pin);
-    current->vemu.variables.error_status = vemu_state_pout.variables.error_status;   
+    current->vemu.variables.fault_status = vemu_state_pout.variables.fault_status;   
+    current->vemu.variables.frequency = vemu_state_pout.variables.frequency;   
+    current->vemu.variables.voltage = vemu_state_pout.variables.voltage;   
+
 }
 EXPORT_SYMBOL(vemu_process_out);
 

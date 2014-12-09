@@ -11,26 +11,20 @@
 
 #define VARMOD_BASE         0x101F5000       /* Variability Module */
 
-#define ACT_TIME			0x000
-#define ACT_EN				(ACT_TIME + 8*MAX_INSTR_CLASSES)
-#define CYCLES				(ACT_EN + 8*MAX_INSTR_CLASSES)
-#define TOTAL_ACT_TIME		(CYCLES + 8*MAX_INSTR_CLASSES)
-#define TOTAL_ACT_EN		(TOTAL_ACT_TIME + 8)
-#define TOTAL_CYCLES		(TOTAL_ACT_EN + 8)
-#define SLP_TIME			(TOTAL_CYCLES + 8)
-#define SLP_ENERGY			(SLP_TIME + 8)
-#define ERRORS_EN			(SLP_ENERGY + 8)
+#define SET_FAULTS				(0x000)
+#define SET_FREQUENCY			(SET_FAULTS+8)	
+#define SET_VOLTAGE				(SET_FREQUENCY+8)
+#define READ_CMD       			(0xD00)
+#define EXIT_CMD           		(0xF00)
 
-#define READ_CMD       		(0xD00)
-#define EXIT_CMD           	(0xF00)
 
 #define	READ_HW				(0x1000000)
 #define	READ_SYS			(0x0100000)
 #define	READ_PROC			(0x0010000)
 
 
-#define	MAX_INSTR_CLASSES	8
-#define VEMU_STATE_N_VARS	(MAX_INSTR_CLASSES*3+6)
+#define	MAX_INSTR_CLASSES	4
+#define VEMU_STATE_N_VARS	(MAX_INSTR_CLASSES*3+8)
 
 typedef struct {
 	uint64_t act_time[MAX_INSTR_CLASSES];
@@ -41,7 +35,9 @@ typedef struct {
 	uint64_t total_cycles;  
 	uint64_t slp_time;
 	uint64_t slp_energy;  
-	uint64_t error_status;
+	uint64_t fault_status;
+	uint64_t frequency;
+	uint64_t voltage;
 } vemu_regs;
 
 typedef union {

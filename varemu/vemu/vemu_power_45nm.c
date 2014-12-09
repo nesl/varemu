@@ -3,6 +3,8 @@
 //  
 //
 //  Created by Liangzhen Lao on 03/28/13.
+//
+//  Moved frequency to PM on 12/8/14 / Lucas
 //  
 //  
 
@@ -16,16 +18,15 @@
 
 #ifdef 	VEMU
 
-extern uint64_t vemu_frequency;
-
 #define TIME_SCALAR 1051200  // 1 year : 5 minutes
 
 #define ADAPTIVE 0
 
 
 typedef struct {
-	double T;	// temperature in celsius
+	double F;	// Frequency
 	double Vdd;	// supply voltage
+	double T;	// temperature in celsius
 	double Nd;	// dynamic power multiplier
 	double Bd;	// nominal value: 10.7
 	double Cd;	// nominal value: 0.605
@@ -43,7 +44,7 @@ typedef struct {
 
 static union {
 	esweek_pm parameters;
-	double pm_array[13];
+	double pm_array[14];
 } pm_parameters;
 
 double vemu_aging_evaluation (void) {
@@ -87,15 +88,14 @@ double vemu_pm_slp_power(void)
 	v *= p->Vdd_scalar;
 #endif 
 	double power = p->Nl * v * t*t * ( exp(p->Al*p->Vnl/t) + exp(p->Al*(p->Vpl+p->delta_vtp)/t) ) * exp(p->Bl*v/t);
-	//double power = p->sA*t*t/exp(p->sB/t) + p->sC;
 	return power/1000000;
 }
 
-double vemu_pm_act_power(uint8_t class, uint64_t frequency)
+double vemu_pm_act_power(uint8_t class)
 {
 	esweek_pm *p = &pm_parameters.parameters;
 	double v = p->Vdd;
-	double f = frequency/1e9;
+	double f = p->F/1e6;
 #ifdef ADAPTIVE
 	v *= p->Vdd_scalar;
 #endif
@@ -106,20 +106,20 @@ double vemu_pm_act_power(uint8_t class, uint64_t frequency)
 
 void vemu_pm_print_parameters(void)
 {
-	vemu_debug("Power model parameters: T=%f, Vdd=%f, Nd=%f, Bd=%f, Cd=%f, Nl=%f, Al=%f, Bl=%f, Vnl=%f, Vpl=%f, delta_vtp=%f\n",
-	pm_parameters.parameters.T, pm_parameters.parameters.Vdd, pm_parameters.parameters.Nd, pm_parameters.parameters.Bd, pm_parameters.parameters.Cd, pm_parameters.parameters.Nl, pm_parameters.parameters.Al, pm_parameters.parameters.Bl, pm_parameters.parameters.Vnl, pm_parameters.parameters.Vpl, pm_parameters.parameters.delta_vtp);
-	vemu_debug("At t=%f, F=%d MHz, Vdd=%f, Delta_vth = %f V, Active Power = %f W, Sleep Power = %f W\n", pm_parameters.parameters.T, (int)(vemu_frequency/1e9), pm_parameters.parameters.Vdd, pm_parameters.parameters.delta_vtp, vemu_pm_act_power(0,vemu_frequency), vemu_pm_slp_power());
+	vemu_debug("Power model parameters: F=%ld, T=%f, Vdd=%f, Nd=%f, Bd=%f, Cd=%f, Nl=%f, Al=%f, Bl=%f, Vnl=%f, Vpl=%f, delta_vtp=%f\n",
+	(long int)pm_parameters.parameters.F,pm_parameters.parameters.T, pm_parameters.parameters.Vdd, pm_parameters.parameters.Nd, pm_parameters.parameters.Bd, pm_parameters.parameters.Cd, pm_parameters.parameters.Nl, pm_parameters.parameters.Al, pm_parameters.parameters.Bl, pm_parameters.parameters.Vnl, pm_parameters.parameters.Vpl, pm_parameters.parameters.delta_vtp);
+	vemu_debug("At t=%f, F=%d MHz, Vdd=%f, Delta_vth = %f V, Active Power = %f W, Sleep Power = %f W\n", pm_parameters.parameters.T, (int)(pm_parameters.parameters.F/1e6), pm_parameters.parameters.Vdd, pm_parameters.parameters.delta_vtp, vemu_pm_act_power(0), vemu_pm_slp_power());
 }
 
 void vemu_pm_change_parameter(uint8_t class, uint8_t parameter, double value)
 {
-	assert(parameter < 13);
+	assert(parameter < 14);
 	//vemu_debug("p=%d, v=%f\n",parameter, value);
 	pm_parameters.pm_array[parameter] = value;
 }
 
 double vemu_pm_get_parameter(uint8_t class, uint8_t parameter){
-	assert(parameter < 13);
+	assert(parameter < 14);
 	return pm_parameters.pm_array[parameter];
 }
 
@@ -130,7 +130,7 @@ void vemu_pm_print_temp_p_curve(void)
 	printf("T, Ps, Pa:\n");
 	for (ttt = -20; ttt <= 100; ttt++) {
 		pm_parameters.pm_array[0] = (double)ttt;
-		printf("%d,%f,%f\n", ttt, vemu_pm_slp_power(), vemu_pm_act_power(0,vemu_frequency));
+		printf("%d,%f,%f\n", ttt, vemu_pm_slp_power(), vemu_pm_act_power(0));
 	}
 	pm_parameters.pm_array[0] = oldT;
 }

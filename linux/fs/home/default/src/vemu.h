@@ -9,22 +9,14 @@
 typedef unsigned long long uint64_t;
 typedef unsigned long uint32_t;
 
+#define 	MAX_INSTR_CLASSES	4
 
-#define ACT_TIME			0x000
-#define ACT_EN				(ACT_TIME + 8*MAX_INSTR_CLASSES)
-#define CYCLES				(ACT_EN + 8*MAX_INSTR_CLASSES)
-#define TOTAL_ACT_TIME		(CYCLES + 8*MAX_INSTR_CLASSES)
-#define TOTAL_ACT_EN		(TOTAL_ACT_TIME + 8)
-#define TOTAL_CYCLES		(TOTAL_ACT_EN + 8)
-#define SLP_TIME			(TOTAL_CYCLES + 8)
-#define SLP_ENERGY			(SLP_TIME + 8)
-#define ERRORS_EN			(SLP_ENERGY + 8)
 
+#define SET_FAULTS			(0x000)
+#define SET_FREQUENCY		(SET_FAULTS+8)	
+#define SET_VOLTAGE			(SET_FREQUENCY+8)
 #define READ_CMD       		(0xD00)
 #define EXIT_CMD           	(0xF00)
-
-#define	MAX_INSTR_CLASSES	8
-#define VEMU_STATE_N_VARS	(MAX_INSTR_CLASSES*3+6)
 
 #define	READ_HW				(0x1000000)
 #define	READ_SYS			(0x0100000)
@@ -39,8 +31,12 @@ typedef struct {
 	uint64_t total_cycles;  
 	uint64_t slp_time;
 	uint64_t slp_energy;  
-	uint64_t error_status;
+	uint64_t fault_status;
+	uint64_t frequency;
+	uint64_t voltage;
 } vemu_regs;
+
+#define VEMU_STATE_N_VARS	(MAX_INSTR_CLASSES*3+8)
 
 typedef union {
 	vemu_regs variables;
@@ -68,11 +64,17 @@ void vemu_delta(vemu_regs * target, vemu_regs * new, vemu_regs * old)
 } 
 
 void vemu_enable_errors(unsigned long long idx) {
-	vemu_write(ERRORS_EN, idx);
+	vemu_write(SET_FAULTS, idx);
 }
 
 void vemu_disable_errors() {
-	vemu_write(ERRORS_EN, 0);
+	vemu_write(SET_FAULTS, 0);
+}
+
+void vemu_dvfs(uint64_t freq, uint64_t voltagemv)
+{
+	vemu_write(SET_FREQUENCY, freq);
+	vemu_write(SET_VOLTAGE, voltagemv);
 }
 
 void vemu_kill() {
