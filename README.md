@@ -1,5 +1,9 @@
 # VarEMU: An emulation testbed for Variability-Aware Software
 
+## Quick build and run
+
+Run <pre>./build_all.sh</pre> to build all necessary components, and then use <pre>start_qemu.sh</pre> to start the simulator.
+
 ## Build instructions
 
 ### VarEMU
@@ -22,9 +26,29 @@ make CFLAGS=-DVEMU
 cd ..
 </pre>
 
+### Buildroot
+
+<pre>
+cd linux
+wget https://buildroot.org/downloads/buildroot-2017.02.2.tar.gz
+tar xzf buildroot-2017.02.2.tar.gz
+cd buildroot-2017.02.2/
+make menuconfig
+</pre>
+
+* Under Load Configuration, select "buildrootconfig" in the linux directory
+* Select any additional apps needed under Package Selection for the Target
+* Save an Alternate Configuration file -> "buildroot-2017.02.2/.config"
+* Add your apps and custom files under the "fs" directory. Buildroot will run the "prepare_fs.sh" script to copy these files before preparing the filesystem image
+
+<pre>
+make
+</pre>
+
+
 ### Linux kernel for versatilepb
 
-* Pre-requisite: Download and install [CodeBench for ARM](https://sourcery.mentor.com/sgpp/lite/arm/portal/subscription?@template=lite) (Linux version, tested with 2011.09-70)
+* Pre-requisite: Download and install [CodeBench for ARM](https://sourcery.mentor.com/sgpp/lite/arm/portal/subscription?@template=lite) (Linux version, tested with 2014.05-29)
 * Download and extract Linux kernel [version 3.6.3](http://www.kernel.org/pub/linux/kernel/v3.0/linux-3.6.3.tar.bz2)
 * Apply VarEMU kernel extensions to kernel source tree
 * Configure Linux kernel for versatilepb platform
@@ -49,24 +73,6 @@ make
 cd ..
 </pre>
 
-### Buildroot
-
-<pre>
-cd linux
-wget http://buildroot.uclibc.org/downloads/buildroot-2012.11.tar.bz2
-tar xjf buildroot-2012.11.tar.bz2 
-cd buildroot-2012.11
-make menuconfig
-</pre>
-
-* Under Load an Alternate Configuration File, select "buildrootconfig" in the linux directory
-* Select any additional apps needed under Package Selection for the Target
-* Save an Alternate Configuration file -> "buildroot-2012.11/.config" 
-* Add your apps and custom configuration files under the "fs" directory. Buildroot will run the "prepare_fs.sh" script to copy these files before preparing the filesystem image
-
-<pre>
-make
-</pre>
 
 
 
@@ -89,4 +95,3 @@ qemu-linaro/arm-softmmu/qemu-system-arm -M versatilepb -m 256M -kernel linux/lin
 <pre>
 python qemu-linaro/QMP/vemu-power.py qmp-sock_01
 </pre>
-
