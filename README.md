@@ -2,7 +2,7 @@
 
 ## Quick download, build and run
 
-Run <pre>./build_all.sh</pre> to build all necessary components, and then use <pre>start_qemu.sh</pre> to start the simulator.
+These commands download, build, and run the Linux testbed for VarEMU.
 
 <pre>
 wget https://github.com/nesl/varemu/archive/master.zip
