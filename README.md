@@ -1,8 +1,17 @@
 # VarEMU: An emulation testbed for Variability-Aware Software
 
-## Quick build and run
+## Quick download, build and run
 
 Run <pre>./build_all.sh</pre> to build all necessary components, and then use <pre>start_qemu.sh</pre> to start the simulator.
+
+<pre>
+wget https://github.com/nesl/varemu/archive/master.zip
+unzip master.zip
+cd varemu-master/
+./build_all.sh
+./start_qemu.sh
+</pre>
+
 
 ## Build instructions
 
@@ -82,7 +91,7 @@ cd ..
 * From the main varemu directory, start QEMU with VarEMU options
 
 <pre>
-qemu-linaro/arm-softmmu/qemu-system-arm -M versatilepb -m 256M -kernel linux/linux-3.6.3/arch/arm/boot/zImage -initrd linux/buildroot-2012.11/output/images/rootfs.cpio.gz -append "root=/dev/ram rdinit=/sbin/init" -singlestep -variability power_model_data/45nm_nc.txt -net nic -net user  -nographic
+qemu-linaro/arm-softmmu/qemu-system-arm -M versatilepb -m 256M -kernel linux/linux-3.6.3/arch/arm/boot/zImage -initrd linux/buildroot-2017.02.2/output/images/rootfs.cpio.gz -append "root=/dev/ram rdinit=/sbin/init" -singlestep -variability power_model_data/45nm_nc.txt -net nic -net user  -nographic
 </pre>
 
 
